@@ -20,19 +20,20 @@
 	<div class="box-header with-border">
     	<h3 class="box-title">Tambah Peraturan</h3>
 	</div>
+	<?php //echo validation_errors();?>
 	<form role= "form" action="<?php echo base_url().'Jdih/create_action';?>" method="POST" enctype="multipart/form-data">
 	<div class="box-body">
     <div class="form-group">
-		<label for="r_lingkup">Ruang Lingkup</label>
+		<label for="r_lingkup">Ruang Lingkup </label><?php echo form_error('r_lingkup')?>
 		<select name="r_lingkup" class="form-control" id="r_lingkup">
 			<option value="">--Pilih Ruang Lingkup--</option>
-			<option value="1">Nasional</option>
-			<option value="2">Internal RS</option>
+			<option value="1" <?php echo ($r_lingkup == '1')?'selected':''?>>Nasional</option>
+			<option value="2" <?php echo ($r_lingkup == '2')?'selected':''?>>Internal RS</option>
 		</select>
     </div>
 	<div class="form-group">
-		<label for="jns_prtn">Jenis Peraturan</label>
-		<input class="form-control" type="text" name="jns_prtn" id="jns_prtn" placeholder="Jenis Peraturan">
+		<label for="jns_prtn">Jenis Peraturan </label><?php echo form_error('jns_prtn')?>
+		<input class="form-control" type="text" name="jns_prtn" id="jns_prtn" placeholder="Jenis Peraturan" value="<?php echo $jns_prtn?>">
 		<input type="hidden" name="id_jns_prtn" id="id_jns_prtn">
 		<!-- <select name="jns_prtn" class="form-control" id="jns_prtn"> -->
 		<!-- <option value="">--Pilih Jenis Peraturan--</option> -->
@@ -45,8 +46,8 @@
         ?>
 	</div>
 	<div class="form-group"	>
-		<label for="th_prtn">Tahun Terbit Peraturan</label>
-		<input class="form-control" type="text" name="th_prtn" id="th_prtn" placeholder="Tahun Terbit Peraturan">
+		<label for="th_prtn">Tahun Terbit Peraturan </label><?php echo form_error('th_prtn')?>
+		<input class="form-control" type="text" name="th_prtn" id="th_prtn" placeholder="Tahun Terbit Peraturan" value="<?php echo $th_prtn?>">
 		<!-- <select name="th_prtn" class="form-control" id="th_prtn">
 		<option value="">--Pilih Tahun Peraturan--</option>
 		<?php
@@ -60,27 +61,27 @@
 		</select> -->
 	</div>
 	<div class="form-group">
-		<label for="nmr_prtn">Nomor Peraturan</label>
-		<input class="form-control" type="text" name="nmr_prtn" id="nmr_prtn" placeholder="Nomor Peraturan">
+		<label for="nmr_prtn">Nomor Peraturan </label><?php echo form_error('nmr_prtn')?>
+		<input class="form-control" type="text" name="nmr_prtn" id="nmr_prtn" placeholder="Nomor Peraturan" value="<?php echo $nmr_prtn?>">
 	</div>
 	<div class="form-group">
-		<label for="nm_prtn">Nama Peraturan</label>
-		<input class="form-control" type="text" name="nm_prtn" id="nm_prtn" placeholder="Nama Peraturan">
+		<label for="nm_prtn">Nama Peraturan </label><?php echo form_error('nm_prtn')?>
+		<input class="form-control" type="text" name="nm_prtn" id="nm_prtn" placeholder="Nama Peraturan" value="<?php echo $nm_prtn?>">
 	</div>
 	<div class="form-group">
-		<label for="sts_prtn">Status Peraturan</label>
+		<label for="sts_prtn">Status Peraturan </label><?php echo form_error('sts_prtn')?>
 		<select class="form-control" name="sts_prtn" id="sts_prtn">
 			<option value="">--Pilih Status Peraturan--</option>
-			<option value="1">Berlaku</option>
-			<option value="2">Tidak Berlaku</option>
+			<option value="1" <?php echo ($sts_prtn == '1')?'selected':''?>>Berlaku</option>
+			<option value="2" <?php echo ($sts_prtn == '2')?'selected':''?>>Tidak Berlaku</option>
 		</select>
 	</div>
 	<div class="form-group">
-		<label for="strkl">Struktural</label>
-		<input class="form-control" type="text" name="strkl" id="strkl" placeholder="Struktural">
+		<label for="strkl">Struktural </label><?php echo form_error('stru_prtn')?>
+		<input class="form-control" type="text" name="strkl" id="strkl" placeholder="Struktural"  value="<?php echo $stru_prtn?>">
 	</div>
 	<div class="form-group">
-		<label for="doc">Upload Dokumen</label>
+		<label for="doc">Upload Dokumen </label><?php echo form_error('data')?>
 		<input class="form-control" type="file" name="data" id="doc">
 	</div>
 	<div class="form-group">

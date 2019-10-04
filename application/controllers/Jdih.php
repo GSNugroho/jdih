@@ -9,6 +9,7 @@ class Jdih extends CI_Controller {
 		if ((!empty($_SESSION['nmUser'])) && (!empty($_SESSION['unameApp'])) && (!empty($_SESSION['passwrdApp'])) && (!empty($_SESSION['nik'])) && (!empty($_SESSION['gugus']))) {
 			$this->load->library('session');
 			$this->load->model('M_jdih');
+			$this->load->library('form_validation');
 		} else {
 			echo "Silahkan Login Terlebih Dahulu";
 			// print_r($_SESSION); 
@@ -40,13 +41,24 @@ class Jdih extends CI_Controller {
 	public function create()
 	{
 		$data = array(
-			'dd_jns' => $this->M_jdih->get_jns()
+			'dd_jns' => $this->M_jdih->get_jns(),
+			'r_lingkup' => set_value('r_lingkup'),
+			'jns_prtn' => set_value('jns_prtn'),
+			'th_prtn' => set_value('th_prtn'),
+			'nmr_prtn' => set_value('nmr_prtn'),
+			'nm_prtn' => set_value('nm_prtn'),
+			'sts_prtn' => set_value('sts_prtn'),
+			'stru_prtn' => set_value('strk1')
 		);
 		$this->load->view('jdih/jdih_input_form', $data);
 	}
 
 	public function create_action()
 	{
+		$this->_rules();
+		if ($this->form_validation->run() == FALSE) {
+            $this->create();
+        } else {
 		$kd_jdih = $this->kode();
 		$dl_sts = 1;
 		$data = array(
@@ -63,9 +75,25 @@ class Jdih extends CI_Controller {
 			'dl_sts' => $dl_sts
 		);
 		$this->do_upload();
-		// $this->M_jdih->insert($data);
-		// redirect('Jdih/list_jdih');
+		$this->M_jdih->insert($data);
+		redirect('Jdih/list_jdih');
+		}
 	}
+
+	public function _rules()
+	{
+		$this->form_validation->set_rules('r_lingkup', 'Ruang Lingkup', 'trim|required');
+		$this->form_validation->set_rules('jns_prtn', 'Jenis Peraturan', 'trim|required');
+		$this->form_validation->set_rules('th_prtn', 'Tahun Peraturan', 'trim|required');
+		$this->form_validation->set_rules('nmr_prtn', 'Nomor Peraturan', 'trim|required');
+		$this->form_validation->set_rules('nm_prtn', 'Nama Peraturan', 'trim|required');
+		$this->form_validation->set_rules('sts_prtn', 'Status Peraturan', 'trim|required');
+		// $this->form_validation->set_rules('strk1', 'Struktur Yang Berkaitan', 'trim|required');
+		// $this->form_validation->set_rules('data', 'Upload', 'trim|required');
+
+		$this->form_validation->set_error_delimiters('<i class="fa fa-fw fa-info-circle text-danger"></i><span class="text-danger">', '</span>');
+	}
+
 
 	public function update($id){
 		$row = $this->M_jdih->get_by_id($id);

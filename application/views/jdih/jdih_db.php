@@ -587,8 +587,9 @@
                   <tbody>
                     <?php 
                       foreach($prtn as $row){
+                        $en_kd = base64_encode($row->kd_jdih);
                         if($row->r_lingkup == 1){ $lingkup = 'Nasional';}else{$lingkup = 'Internal RS';}
-                        echo '<tr><td>'.$row->nm_prtn.'</td><td>'.$row->nm_jdih_jns.'</td><td>'.$lingkup.'</td><td>'.$row->th_prtn.'</td><td><a href="Jdih/read_pdf/'.$row->kd_jdih.'" target="_blank">
+                        echo '<tr><td>'.$row->nm_prtn.'</td><td>'.$row->nm_jdih_jns.'</td><td>'.$lingkup.'</td><td>'.$row->th_prtn.'</td><td><a href="Jdih/read_pdf/'.$en_kd.'" target="_blank">
                         <i class="fa fa-file-pdf-o"></i>
                         </a></td></tr>';
                       }

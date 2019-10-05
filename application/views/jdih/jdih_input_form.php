@@ -78,7 +78,7 @@
 	</div>
 	<div class="form-group">
 		<label for="strkl">Struktural </label><?php echo form_error('stru_prtn')?>
-		<input class="form-control" type="text" name="strkl" id="strkl" placeholder="Struktural"  value="<?php echo $stru_prtn?>">
+		<input class="form-control" type="text" name="stru_prtn" id="stru_prtn" placeholder="Struktural"  value="<?php echo $stru_prtn?>">
 	</div>
 	<div class="form-group">
 		<label for="doc">Upload Dokumen </label><?php echo form_error('data')?>
@@ -115,7 +115,7 @@ $(function() {
     });
 });
 $(function() {
-    $("#strkl").autocomplete({
+    $("#stru_prtn").autocomplete({
         source: "<?php echo base_url('Jdih/autostrk'); ?>",
 		minLength:1
     });

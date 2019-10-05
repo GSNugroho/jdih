@@ -48,7 +48,7 @@ class Jdih extends CI_Controller {
 			'nmr_prtn' => set_value('nmr_prtn'),
 			'nm_prtn' => set_value('nm_prtn'),
 			'sts_prtn' => set_value('sts_prtn'),
-			'stru_prtn' => set_value('strk1')
+			'stru_prtn' => set_value('stru_prtn')
 		);
 		$this->load->view('jdih/jdih_input_form', $data);
 	}
@@ -69,13 +69,14 @@ class Jdih extends CI_Controller {
 			'nmr_prtn' => $this->input->post('nmr_prtn', TRUE),
 			'nm_prtn' => $this->input->post('nm_prtn', TRUE),
 			'sts_prtn' => $this->input->post('sts_prtn', TRUE),
-			'stru_prtn' => $this->input->post('strkl', TRUE),
+			'stru_prtn' => $this->input->post('stru_prtn', TRUE),
 			'date_create' => date('Y-m-d'),
 			'nm_doc_prtn' => $kd_jdih,
 			'dl_sts' => $dl_sts
 		);
 		$this->do_upload();
 		$this->M_jdih->insert($data);
+		$this->session->set_flashdata('message', 'Tambah Data Peraturan Berhasil');
 		redirect('Jdih/list_jdih');
 		}
 	}
@@ -88,7 +89,7 @@ class Jdih extends CI_Controller {
 		$this->form_validation->set_rules('nmr_prtn', 'Nomor Peraturan', 'trim|required');
 		$this->form_validation->set_rules('nm_prtn', 'Nama Peraturan', 'trim|required');
 		$this->form_validation->set_rules('sts_prtn', 'Status Peraturan', 'trim|required');
-		// $this->form_validation->set_rules('strk1', 'Struktur Yang Berkaitan', 'trim|required');
+		$this->form_validation->set_rules('stru_prtn', 'Struktur Yang Berkaitan', 'trim|required');
 		// $this->form_validation->set_rules('data', 'Upload', 'trim|required');
 
 		$this->form_validation->set_error_delimiters('<i class="fa fa-fw fa-info-circle text-danger"></i><span class="text-danger">', '</span>');
@@ -128,7 +129,9 @@ class Jdih extends CI_Controller {
 		if(!empty($_FILES)){
 		$this->do_upload_update($this->input->post('kd_jdih'));
 		}else{echo "Lanjut"; echo $this->input->post('data');}
+
 		$this->M_jdih->update($this->input->post('kd_jdih'), $data);
+		$this->session->set_flashdata('message', 'Sunting Data Peraturan Berhasil');
 		redirect(base_url('jdih/list_jdih'));
 	}
 
@@ -179,6 +182,7 @@ class Jdih extends CI_Controller {
 				'dl_sts' => $dl_sts
 			);
 			$this->M_jdih->update($id, $data);
+			$this->session->set_flashdata('messages', 'Hapus Data Peraturan Berhasil');
 			redirect(base_url('Jdih/list_jdih'));
 		}
 	}
@@ -266,6 +270,7 @@ class Jdih extends CI_Controller {
 	public function read_pdf($id){
 		$this->load->helper('download');
 		$this->load->helper('security');
+		$id = base64_decode($id);
 
 		$row = $this->M_jdih->get_by_id($id);
 		if($row){
@@ -300,7 +305,8 @@ class Jdih extends CI_Controller {
 		);
 
 		$this->M_jdih->insert_jns($data);
-		$this->load->view('jns_jdih/jns_jdih_list');
+		$this->session->set_flashdata('message', 'Tambah Data Jenis Peraturan Berhasil');
+		redirect(base_url('Jdih/jns_prtn'));
 	}
 	public function update_jns_prtn($id){
 		$row = $this->M_jdih->get_by_id_jns($id);
@@ -318,7 +324,8 @@ class Jdih extends CI_Controller {
 			'nm_jdih_jns' => $this->input->post('jns_prtn', TRUE)
 		);
 		$this->M_jdih->update_jns($this->input->post('id_jns', TRUE), $data);
-		$this->load->view('jns_jdih/jns_jdih_list');
+		$this->session->set_flashdata('message', 'Sunting Data Jenis Peraturan Berhasil');
+		redirect(base_url('Jdih/jns_prtn'));
 	}
 	public function delete_jns_prtn($id){
 		$row = $this->M_jdih->get_by_id_jns($id);
@@ -330,7 +337,9 @@ class Jdih extends CI_Controller {
 			);
 		}
 		$this->M_jdih->update_jns($id, $data);
-		$this->load->view('jns_jdih/jns_jdih_list', $data);
+		$this->session->set_flashdata('messages', 'Hapus Data Jenis Peraturan Berhasil');
+		// $this->load->view('jns_jdih/jns_jdih_list');
+		redirect(base_url('Jdih/jns_prtn'));
 	}
 
 	function kode(){
@@ -427,8 +436,9 @@ class Jdih extends CI_Controller {
 		<i class="fa fa-trash"></i>
 		</a>
 		';
+		$en_kd = base64_encode($row->kd_jdih);
 		$pdf = '
-		<a href="read_pdf/'.$row->kd_jdih.'" target="_blank">
+		<a href="read_pdf/'.$en_kd.'" target="_blank">
 		<i class="fa fa-file-pdf-o"></i>
 		'.$row->nm_prtn.'
 		</a>

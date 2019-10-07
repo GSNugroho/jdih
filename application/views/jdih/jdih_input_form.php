@@ -82,7 +82,7 @@
 	</div>
 	<div class="form-group">
 		<label for="doc">Upload Dokumen </label><?php echo form_error('data')?>
-		<input class="form-control" type="file" name="data" id="doc">
+		<input class="form-control" type="file" name="data" id="doc"><?php echo $datau?>
 	</div>
 	<div class="form-group">
 		<input type='submit' name='submit' value='Simpan' class="btn btn-primary"/>

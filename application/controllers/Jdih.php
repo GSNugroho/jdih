@@ -48,7 +48,8 @@ class Jdih extends CI_Controller {
 			'nmr_prtn' => set_value('nmr_prtn'),
 			'nm_prtn' => set_value('nm_prtn'),
 			'sts_prtn' => set_value('sts_prtn'),
-			'stru_prtn' => set_value('stru_prtn')
+			'stru_prtn' => set_value('stru_prtn'),
+			'datau' => set_value('data')
 		);
 		$this->load->view('jdih/jdih_input_form', $data);
 	}
@@ -202,10 +203,12 @@ class Jdih extends CI_Controller {
 		
 		$config = array(
 		'upload_path' => "uploads/",
+		// 'upload_path' => "dt.app.rspw/jdih",
 		'file_name' => $en_name,
 		'allowed_types' => "pdf",
 		'overwrite' => TRUE,
-		'max_size' => "2048000"
+		'max_size' => "2048000",
+		'encrypt_name' => TRUE
 		);
 		$this->load->library('upload', $config);
 		if($this->upload->do_upload('data'))
@@ -218,6 +221,8 @@ class Jdih extends CI_Controller {
 		{
 		// $error = array('error' => $this->upload->display_errors());
 		echo 'gagal';
+		$this->session->set_flashdata('messages', 'Upload Data Peraturan Gagal');
+		redirect(base_url('Jdih/list_jdih'));
 		
 		}
 	}
@@ -230,6 +235,7 @@ class Jdih extends CI_Controller {
 
 		$config = array(
 			'upload_path' => "uploads/",
+			// 'upload_path' => "dt.app.rspw/jdih/",
 			'file_name' => $en_name,
 			'allowed_types' => "pdf",
 			'overwrite' => TRUE,
@@ -259,6 +265,7 @@ class Jdih extends CI_Controller {
 		if($this->uri->segment(3))
 		{	
 		    $data   = file_get_contents('uploads/'.$en_name.'.pdf');
+		    // $data   = file_get_contents('dt.app.rspw/jdih/'.$en_name.'.pdf');
 		}
 		// $name   = $this->uri->segment(3);
 		$name = $nm_prtn.'.pdf';
@@ -394,9 +401,8 @@ class Jdih extends CI_Controller {
 		nm_jdih_jns like '%".$searchValue."%' or 
 		th_prtn like '%".$searchValue."%' or 
 		nmr_prtn like '%".$searchValue."%' or 
-		nm_prtn like'%".$searchValue."%' or
-		stru_prtn like'%".$searchValue."% 
-		' ) ";
+		nm_prtn like '%".$searchValue."%' or
+		stru_prtn like '%".$searchValue."%' ) ";
 		}
 
 		## Total number of records without filtering

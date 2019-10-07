@@ -8,7 +8,7 @@
     position: fixed;
     border: 1px solid greenyellow;
     width: 200px;
-    top: 95px;
+    top: 75px;
     left: 500px;
     padding: 5px 10px;
     background-color: #00a65a;
@@ -18,7 +18,7 @@
 	.pesans{
     display: none;
     position: fixed;
-    border: 1px solid red
+    border: 1px solid red;
     width: 200px;
     top: 95px;
     left: 500px;

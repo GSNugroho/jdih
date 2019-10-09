@@ -473,65 +473,6 @@
                 <div class="chart">
                   <canvas id="pieChart" style="height:250px"></canvas>
                 </div>
-                  <ul class="users-list clearfix">
-                    <?php 
-                      foreach($jns_1 as $row){
-                        echo '<li>'.$row->nm_jdih_jns.'
-                              <span class="users-list-date">'.$row->total.'</span>
-                              </li>';
-                      }
-                      foreach($jns_2 as $row){
-                        echo '<li>'.$row->nm_jdih_jns.'
-                        <span class="users-list-date">'.$row->total.'</span>
-                        </li>';
-                      }
-                      foreach($jns_3 as $row){
-                        echo '<li>'.$row->nm_jdih_jns.'
-                        <span class="users-list-date">'.$row->total.'</span>
-                        </li>';
-                      }
-                      foreach($jns_4 as $row){
-                        echo '<li>'.$row->nm_jdih_jns.'
-                        <span class="users-list-date">'.$row->total.'</span>
-                        </li>';
-                      }
-                      foreach($jns_5 as $row){
-                        echo '<li>'.$row->nm_jdih_jns.'
-                        <span class="users-list-date">'.$row->total.'</span>
-                        </li>';
-                      }
-                      foreach($jns_6 as $row){
-                        echo '<li>'.$row->nm_jdih_jns.'
-                        <span class="users-list-date">'.$row->total.'</span>
-                        </li>';
-                      }
-                      foreach($jns_7 as $row){
-                        echo '<li>'.$row->nm_jdih_jns.'
-                        <span class="users-list-date">'.$row->total.'</span>
-                        </li>';
-                      }
-                      foreach($jns_8 as $row){
-                        echo '<li>'.$row->nm_jdih_jns.'
-                        <span class="users-list-date">'.$row->total.'</span>
-                        </li>';
-                      }
-                      foreach($jns_9 as $row){
-                        echo '<li>'.$row->nm_jdih_jns.'
-                        <span class="users-list-date">'.$row->total.'</span>
-                        </li>';
-                      }
-                      foreach($jns_10 as $row){
-                        echo '<li>'.$row->nm_jdih_jns.'
-                        <span class="users-list-date">'.$row->total.'</span>
-                        </li>';
-                      }
-                      foreach($jns_11 as $row){
-                        echo '<li>'.$row->nm_jdih_jns.'
-                        <span class="users-list-date">'.$row->total.'</span>
-                        </li>';
-                      }
-                    ?>
-                  </ul>
                   <!-- /.users-list -->
                 </div>
                 <!-- /.box-footer -->
@@ -546,20 +487,9 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body no-padding">
-                  <ul class="users-list clearfix">
-                    <?php 
-                      foreach($r_l1 as $row){
-                        echo '<li>Nasional
-                              <span class="users-list-date">'.$row->total.'</span>
-                              </li>';
-                      }
-                      foreach($r_l2 as $row){
-                        echo '<li>Internal RS
-                        <span class="users-list-date">'.$row->total.'</span>
-                        </li>';
-                      }
-                    ?>
-                  </ul>
+                <div class="chart">
+                  <canvas id="pieChart2" style="height:250px"></canvas>
+                </div>
                   <!-- /.users-list -->
                 </div>
                 <!-- /.box-footer -->
@@ -571,6 +501,7 @@
           <!-- /.nm_jdih_jns
            TABLE: LATEST ORDERS -->
           <div class="row">
+          <div class="col-md-12">
           <div class="box box-info">
             <div class="box-header with-border">
               <h3 class="box-title">Peraturan Terakhir Ditambahkan</h3>
@@ -604,6 +535,7 @@
               <!-- /.table-responsive -->
             </div>
             <!-- /.box-footer -->
+          </div>
           </div>
           <!-- /.box -->
         </div>
@@ -826,58 +758,53 @@
     var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
     var pieChart       = new Chart(pieChartCanvas)
     var PieData        = [
-      {
-        <?php
-          foreach($jns_1 as $row){
-            if($row->total != null){$angka = $row->total;}else{$angka = 0;}
-            echo "value : ".$angka.", color : '#f56954', highlight: '#f56954', label : '".$row->nm_jdih_jns."'";
-          }
-        ?>
-      },
-      {
-        <?php
-          foreach($jns_2 as $row){
-            if($row->total != null){$angka = $row->total;}else{$angka = 0;}
-            echo "value : ".$angka.", color : '#00a65a', highlight: '#00a65a', label : '".$row->nm_jdih_jns."'";
-          }
-        ?>
-      },
-
-      {
-        <?php
-          foreach($jns_5 as $row){
-            if($row->total != null){$angka = $row->total;}else{$angka = 0;}
-            echo "value : ".$angka.", color : '#3c8dbc', highlight: '#3c8dbc', label : '".$row->nm_jdih_jns."'";
-          }
-        ?>
-      }
+      <?php 
+        foreach($grafik as $row){
+          echo "{value: ".$row->total.", label : '".$row->nm_jdih_jns."'},";
+        }
+      ?>
     ]
     var pieOptions     = {
-      //Boolean - Whether we should show a stroke on each segment
       segmentShowStroke    : true,
-      //String - The colour of each segment stroke
       segmentStrokeColor   : '#fff',
-      //Number - The width of each segment stroke
       segmentStrokeWidth   : 2,
-      //Number - The percentage of the chart that we cut out of the middle
-      percentageInnerCutout: 50, // This is 0 for Pie charts
-      //Number - Amount of animation steps
+      percentageInnerCutout: 50,
       animationSteps       : 100,
-      //String - Animation easing effect
       animationEasing      : 'easeOutBounce',
-      //Boolean - Whether we animate the rotation of the Doughnut
       animateRotate        : true,
-      //Boolean - Whether we animate scaling the Doughnut from the centre
       animateScale         : false,
-      //Boolean - whether to make the chart responsive to window resizing
       responsive           : true,
-      // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
       maintainAspectRatio  : true,
-      //String - A legend template
       legendTemplate       : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<segments.length; i++){%><li><span style="background-color:<%=segments[i].fillColor%>"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>'
     }
     //Create pie or douhnut chart
     // You can switch between pie and douhnut using the method below.
+    pieChart.Doughnut(PieData, pieOptions)
+
+    var pieChartCanvas = $('#pieChart2').get(0).getContext('2d')
+    var pieChart = new Chart(pieChartCanvas)
+    var PieData = [
+      <?php
+        foreach($grafik2 as $row){
+          switch($row->r_lingkup){ case 1: $rl = 'Nasional';break; 
+            case 2: $rl = 'Internal RS';break;}
+          echo "{value: ".$row->total.", label : '".$rl."'},";
+        }
+      ?>
+    ]
+    var pieOptions     = {
+      segmentShowStroke    : true,
+      segmentStrokeColor   : '#fff',
+      segmentStrokeWidth   : 2,
+      percentageInnerCutout: 50,
+      animationSteps       : 100,
+      animationEasing      : 'easeOutBounce',
+      animateRotate        : true,
+      animateScale         : false,
+      responsive           : true,
+      maintainAspectRatio  : true,
+      legendTemplate       : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<segments.length; i++){%><li><span style="background-color:<%=segments[i].fillColor%>"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>'
+    }
     pieChart.Doughnut(PieData, pieOptions)
   </script>
 </body>

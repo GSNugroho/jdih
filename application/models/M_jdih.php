@@ -213,6 +213,16 @@ class M_jdih extends CI_Model{
 		return $query->result();
 	}
 
+	function get_tot_grafik_jns(){
+		$query = $this->db->query("SELECT SKR_Jdih_jns.nm_jdih_jns, COUNT(SKR_Jdih_jns.nm_jdih_jns) AS total FROM SKR_Jdih_jns JOIN SKR_Jdih ON SKR_Jdih_jns.id_jns = SKR_Jdih.jns_prtn WHERE SKR_Jdih.dl_sts = 1 GROUP BY SKR_Jdih_jns.nm_jdih_jns");
+		return $query->result();
+	}
+
+	function get_tot_grafik_rl(){
+		$query = $this->db->query("SELECT SKR_Jdih.r_lingkup, COUNT(SKR_Jdih.r_lingkup) as total FROM SKR_Jdih WHERE SKR_Jdih.dl_sts = 1 GROUP BY SKR_Jdih.r_lingkup");
+		return $query->result();
+	}
+
 
 }
 ?>

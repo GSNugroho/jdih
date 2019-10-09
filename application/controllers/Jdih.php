@@ -34,6 +34,8 @@ class Jdih extends CI_Controller {
 			'jns_11' => $this->M_jdih->get_t_jns11(),
 			'r_l1' => $this->M_jdih->get_t_rl1(),
 			'r_l2' => $this->M_jdih->get_t_rl2(),
+			'grafik' => $this->M_jdih->get_tot_grafik_jns(),
+			'grafik2' => $this->M_jdih->get_tot_grafik_rl()
 		);
 		$this->load->view('jdih/jdih_db', $data);
 	}
@@ -74,6 +76,7 @@ class Jdih extends CI_Controller {
 			'date_create' => date('Y-m-d'),
 			'nm_doc_prtn' => $kd_jdih,
 			'dl_sts' => $dl_sts
+			// 'uradd' => $this->session->userdata('unameApp')
 		);
 		$this->do_upload();
 		$this->M_jdih->insert($data);
@@ -203,7 +206,7 @@ class Jdih extends CI_Controller {
 		
 		$config = array(
 		'upload_path' => "uploads/",
-		// 'upload_path' => "dt.app.rspw/jdih",
+		// 'upload_path' => "dt.rspantiwaluyo/jdih",
 		'file_name' => $en_name,
 		'allowed_types' => "pdf",
 		'overwrite' => TRUE,
@@ -235,7 +238,7 @@ class Jdih extends CI_Controller {
 
 		$config = array(
 			'upload_path' => "uploads/",
-			// 'upload_path' => "dt.app.rspw/jdih/",
+			// 'upload_path' => "dt.rspantiwaluyo/jdih/",
 			'file_name' => $en_name,
 			'allowed_types' => "pdf",
 			'overwrite' => TRUE,
@@ -265,7 +268,7 @@ class Jdih extends CI_Controller {
 		if($this->uri->segment(3))
 		{	
 		    $data   = file_get_contents('uploads/'.$en_name.'.pdf');
-		    // $data   = file_get_contents('dt.app.rspw/jdih/'.$en_name.'.pdf');
+		    // $data   = file_get_contents('dt.rspantiwaluyo/jdih/'.$en_name.'.pdf');
 		}
 		// $name   = $this->uri->segment(3);
 		$name = $nm_prtn.'.pdf';

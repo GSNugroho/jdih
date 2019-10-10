@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="<?php echo base_url('assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')?>">
 
     <div class="container">
-<div class="box box-primary">
+<div class="box box-info">
     <div class="box-header with-border">
         <h3 class="box-title">Daftar Peraturan</h3>
     </div>

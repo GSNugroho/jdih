@@ -75,8 +75,8 @@ class Jdih extends CI_Controller {
 			'stru_prtn' => $this->input->post('stru_prtn', TRUE),
 			'date_create' => date('Y-m-d'),
 			'nm_doc_prtn' => $kd_jdih,
-			'dl_sts' => $dl_sts
-			// 'uradd' => $this->session->userdata('unameApp')
+			'dl_sts' => $dl_sts,
+			'uradd' => $this->session->userdata('unameApp')
 		);
 		$this->do_upload();
 		$this->M_jdih->insert($data);
@@ -186,9 +186,19 @@ class Jdih extends CI_Controller {
 				'dl_sts' => $dl_sts
 			);
 			$this->M_jdih->update($id, $data);
+			$this->delete_file($id);
 			$this->session->set_flashdata('messages', 'Hapus Data Peraturan Berhasil');
 			redirect(base_url('Jdih/list_jdih'));
 		}
+	}
+
+	public function delete_file($id){
+		$this->load->helper('security');
+		
+		// $path = base_url('uploads/');
+		$e_name = $id.'.pdf';
+		$en_name = do_hash($e_name, 'md5');
+    	unlink(FCPATH.'uploads/'.$en_name.'.pdf');
 	}
 	public function list_jdih()
 	{
@@ -202,6 +212,7 @@ class Jdih extends CI_Controller {
 	{
 		$this->load->helper('security');
 		$name = $this->kode().'.pdf';
+		echo $name;
 		$en_name = do_hash($name, 'md5');
 		
 		$config = array(
@@ -209,9 +220,9 @@ class Jdih extends CI_Controller {
 		// 'upload_path' => "dt.rspantiwaluyo/jdih",
 		'file_name' => $en_name,
 		'allowed_types' => "pdf",
-		'overwrite' => TRUE,
+		// 'overwrite' => TRUE,
 		'max_size' => "2048000",
-		'encrypt_name' => TRUE
+		// 'encrypt_name' => TRUE
 		);
 		$this->load->library('upload', $config);
 		if($this->upload->do_upload('data'))
@@ -280,7 +291,7 @@ class Jdih extends CI_Controller {
 	public function read_pdf($id){
 		$this->load->helper('download');
 		$this->load->helper('security');
-		$id = base64_decode($id);
+		// $id = base64_decode($id);
 
 		$row = $this->M_jdih->get_by_id($id);
 		if($row){
@@ -447,7 +458,7 @@ class Jdih extends CI_Controller {
 		';
 		$en_kd = base64_encode($row->kd_jdih);
 		$pdf = '
-		<a href="read_pdf/'.$en_kd.'" target="_blank">
+		<a href="read_pdf/'.$row->kd_jdih.'" target="_blank">
 		<i class="fa fa-file-pdf-o"></i>
 		'.$row->nm_prtn.'
 		</a>

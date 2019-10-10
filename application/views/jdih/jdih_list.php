@@ -20,7 +20,7 @@
     position: fixed;
     border: 1px solid red;
     width: 200px;
-    top: 95px;
+    top: 75px;
     left: 500px;
     padding: 5px 10px;
     background-color: #f56954;
@@ -30,7 +30,7 @@
 </style>
     <div class="container">
 	
-<div class="box box-primary">
+<div class="box box-info">
 		<?php
             if (($this->session->userdata('message')) <> '') {
                 echo '<div class="pesan">'.$this->session->userdata('message').'</div>';

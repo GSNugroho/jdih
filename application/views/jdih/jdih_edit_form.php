@@ -16,7 +16,7 @@
 </style>
 
     <div class="container">
-<div class="box box-primary">
+<div class="box box-info">
 	<div class="box-header with-border">
     	<h3 class="box-title">Sunting Projek PKS</h3>
 	</div>

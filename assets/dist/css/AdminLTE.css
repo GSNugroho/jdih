@@ -19,7 +19,7 @@ body {
   height: 100%;
 }
 body {
-  font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: Helvetica;
   font-weight: 400;
   overflow-x: hidden;
   overflow-y: auto;
@@ -164,7 +164,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: Helvetica;
 }
 /* General Links */
 a {
@@ -269,7 +269,7 @@ a:focus {
   background: transparent;
 }
 .main-header .sidebar-toggle.fa5 {
-  font-family: "Font Awesome\ 5 Free";
+  font-family: Helvetica;
 }
 .main-header .sidebar-toggle.fa5:before {
   content: "\f0c9";
@@ -303,7 +303,7 @@ a:focus {
   line-height: 50px;
   text-align: center;
   width: 230px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: Helvetica;
   padding: 0 15px;
   font-weight: 300;
   overflow: hidden;

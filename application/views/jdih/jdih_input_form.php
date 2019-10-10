@@ -1,7 +1,14 @@
 <?php
 	$this->load->view('jdih/jdih');
 ?>
-<link rel="stylesheet" href="<?php echo base_url('assets/bower_components/jquery-ui/themes/smoothness/jquery-ui.css')?>">
+	<link rel="stylesheet" href="<?php echo base_url('assets/datepicker/css/bootstrap.min.css')?>">
+	<link rel="stylesheet" href="<?php echo base_url('assets/datepicker/css/ilmudetil.css')?>">
+	<link rel="stylesheet" href="<?php echo base_url('assets/datepicker/css/bootstrap-datetimepicker.css')?>"/>
+	<script src="<?php echo base_url('assets/datepicker/js/bootstrap.min.js')?>"></script>
+	<script src="<?php echo base_url('assets/datepicker/js/moment-with-locales.js')?>"></script>
+	<script src="<?php echo base_url('assets/datepicker/js/jquery-1.11.3.min.js')?>"></script>
+	<script src="<?php echo base_url('assets/datepicker/js/bootstrap-datetimepicker.js')?>"></script>
+	<link rel="stylesheet" href="<?php echo base_url('assets/bower_components/jquery-ui/themes/smoothness/jquery-ui.css')?>">
 
 <script src="<?php echo base_url('assets/bower_components/jquery-ui/jquery-ui.js')?>"></script>
 <style>
@@ -16,7 +23,7 @@
 </style>
 
     <div class="container">
-<div class="box box-primary">
+<div class="box box-info">
 	<div class="box-header with-border">
     	<h3 class="box-title">Tambah Peraturan</h3>
 	</div>
@@ -120,6 +127,9 @@ $(function() {
 		minLength:1
     });
 });
+$(function() { 
+  	$('#th_prtn').datetimepicker({locale:'id',format : "YYYY"});
+	});
 </script>
 </body>
 </html>

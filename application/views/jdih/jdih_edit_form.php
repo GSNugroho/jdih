@@ -1,6 +1,13 @@
 <?php
 	$this->load->view('jdih/jdih');
 ?>
+	<link rel="stylesheet" href="<?php echo base_url('assets/datepicker/css/bootstrap.min.css')?>">
+	<link rel="stylesheet" href="<?php echo base_url('assets/datepicker/css/ilmudetil.css')?>">
+	<link rel="stylesheet" href="<?php echo base_url('assets/datepicker/css/bootstrap-datetimepicker.css')?>"/>
+	<script src="<?php echo base_url('assets/datepicker/js/bootstrap.min.js')?>"></script>
+	<script src="<?php echo base_url('assets/datepicker/js/moment-with-locales.js')?>"></script>
+	<script src="<?php echo base_url('assets/datepicker/js/jquery-1.11.3.min.js')?>"></script>
+	<script src="<?php echo base_url('assets/datepicker/js/bootstrap-datetimepicker.js')?>"></script>
 <link rel="stylesheet" href="<?php echo base_url('assets/bower_components/jquery-ui/themes/smoothness/jquery-ui.css')?>">
 
 <script src="<?php echo base_url('assets/bower_components/jquery-ui/jquery-ui.js')?>"></script>
@@ -13,6 +20,9 @@
             /* add padding to account for vertical scrollbar */
             padding-right: 20px;
         } 
+		.a{
+			color: #00c0ef !important;
+		}
 </style>
 
     <div class="container">
@@ -33,6 +43,7 @@
 	<div class="form-group">
 		<label for="jns_prtn">Jenis Peraturan</label>
 		<input class="form-control" type="text" name="jns_prtn" id="jns_prtn" placeholder="Jenis Peraturan" value="<?php echo $jns_prtn?>">
+		<input type="hidden" name="id_jns_prtn" id="id_jns_prtn" value="<?php echo $id_jns_prtn?>">
 		<!-- <select name="jns_prtn" class="form-control" id="jns_prtn">
 			<option value="">--Pilih Jenis Peraturan</option>
 			<option value="1" <?php //echo ($jns_prtn == '1')?'selected':''?>>Undang - Undang</option>
@@ -74,7 +85,10 @@
 	</div>
 	<div class="form-group">
 		<label for="doc">Upload Dokumen</label>
-		<input class="form-control" type="file" name="data" id="doc" value="lanjut"><?php echo $nm_prtn.'.pdf'?>
+		<input class="form-control" type="file" name="data" id="doc" value="lanjut"><?php echo '<a href='.base_url().'Jdih/read_pdf/'.$kd_jdih.' target="_blank">
+		<i class="fa fa-file-pdf-o"></i>
+		'.$nm_prtn.'.pdf
+		</a>'?>
 	</div>
 	<div class="form-group">
 		<input type="hidden" name="kd_jdih" id="kd_jdih" value="<?php echo $kd_jdih?>">
@@ -100,15 +114,22 @@
 $(function() {
     $("#jns_prtn").autocomplete({
         source: "<?php echo base_url('Jdih/autojenis'); ?>",
-		minLength:1
+		minLength:1,
+		select: function (event, ui){
+			$('[name="jns_prtn"]').val(ui.item.value); 
+            $('[name="id_jns_prtn"]').val(ui.item.id); 
+			}
     });
 });
 $(function() {
-    $("#strkl").autocomplete({
+    $("#stru_prtn").autocomplete({
         source: "<?php echo base_url('Jdih/autostrk'); ?>",
 		minLength:1
     });
 });
+$(function() { 
+  	$('#th_prtn').datetimepicker({locale:'id',format : "YYYY"});
+	});
 </script>
 </body>
 </html>

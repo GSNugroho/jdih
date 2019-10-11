@@ -2,14 +2,15 @@
 <?php 
   // The location of the PDF file 
   // on the server 
-  $filename = "uploads/".$en_name.".pdf"; 
-  // $filename = "dt.rspantiwaluyo/jdih/".$en_name.".pdf"; 
+  // $filename = "uploads/".$en_name.".pdf"; 
+  $filename = "https://dt.rspantiwaluyo.com/jdih/".$en_name.".pdf"; 
     // echo $filename;
    // Header content type 
+   $file = get_headers($filename, TRUE);
   header("Content-type: application/pdf"); 
     // header("Content-title: ".$filename);
   header('Content-Transfer-Encoding: binary');
-  header("Content-Length: " . filesize($filename)); 
+  header("Content-Length: " . $file['Content-Length']); 
     
   // Send the file to the browser. 
   readfile($filename);

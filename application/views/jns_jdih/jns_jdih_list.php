@@ -29,7 +29,7 @@
 	}
 </style>
     <div class="container">
-<div class="box box-primary">
+<div class="box box-info">
 		<?php
             if (($this->session->userdata('message')) <> '') {
                 echo '<div class="pesan">'.$this->session->userdata('message').'</div>';

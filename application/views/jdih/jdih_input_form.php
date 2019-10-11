@@ -55,17 +55,6 @@
 	<div class="form-group"	>
 		<label for="th_prtn">Tahun Terbit Peraturan </label><?php echo form_error('th_prtn')?>
 		<input class="form-control" type="text" name="th_prtn" id="th_prtn" placeholder="Tahun Terbit Peraturan" value="<?php echo $th_prtn?>">
-		<!-- <select name="th_prtn" class="form-control" id="th_prtn">
-		<option value="">--Pilih Tahun Peraturan--</option>
-		<?php
-        // $thn_skr = date('Y');
-        // for ($x = $thn_skr; $x >= 2010; $x--) {
-        ?>
-        <option value="<?php //echo $x ?>"><?php //echo $x ?></option>
-        <?php
-        //}
-		?>
-		</select> -->
 	</div>
 	<div class="form-group">
 		<label for="nmr_prtn">Nomor Peraturan </label><?php echo form_error('nmr_prtn')?>

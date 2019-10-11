@@ -75,8 +75,8 @@ class Jdih extends CI_Controller {
 			'stru_prtn' => $this->input->post('stru_prtn', TRUE),
 			'date_create' => date('Y-m-d'),
 			'nm_doc_prtn' => $kd_jdih,
-			'dl_sts' => $dl_sts,
-			'uradd' => $this->session->userdata('unameApp')
+			'dl_sts' => $dl_sts
+			// 'uradd' => $this->session->userdata('unameApp')
 		);
 		$this->do_upload();
 		$this->M_jdih->insert($data);
@@ -104,10 +104,16 @@ class Jdih extends CI_Controller {
 		$row = $this->M_jdih->get_by_id($id);
 
 		if($row){
+			$rows = $this->M_jdih->get_by_id_jns($row->jns_prtn);
+			if($rows){
+				$jns_prtn = $rows->nm_jdih_jns;
+			}
+
 			$data = array(
 				'kd_jdih' => set_value('kd_jdih', $row->kd_jdih),
 				'r_lingkup' => set_value('r_lingkup', $row->r_lingkup),
-				'jns_prtn' => set_value('jns_prtn', $row->jns_prtn),
+				'jns_prtn' => set_value('jns_prtn', $jns_prtn),
+				'id_jns_prtn' => set_value('id_jns_prtn', $row->jns_prtn),
 				'th_prtn' => set_value('th_prtn', $row->th_prtn),
 				'nmr_prtn' => set_value('nmr_prtn', $row->nmr_prtn),
 				'nm_prtn' => set_value('nm_prtn', $row->nm_prtn),
@@ -122,7 +128,7 @@ class Jdih extends CI_Controller {
 	public function update_action(){
 		$data = array(
 			'r_lingkup' => $this->input->post('r_lingkup', TRUE),
-			'jns_prtn' => $this->input->post('jns_prtn', TRUE),
+			'jns_prtn' => $this->input->post('id_jns_prtn', TRUE),
 			'th_prtn' => $this->input->post('th_prtn', TRUE),
 			'nmr_prtn' => $this->input->post('nmr_prtn', TRUE),
 			'nm_prtn' => $this->input->post('nm_prtn', TRUE),
@@ -198,8 +204,9 @@ class Jdih extends CI_Controller {
 		// $path = base_url('uploads/');
 		$e_name = $id.'.pdf';
 		$en_name = do_hash($e_name, 'md5');
-    	unlink(FCPATH.'uploads/'.$en_name.'.pdf');
+    	unlink(FCPATH.'https://dt.rspantiwaluyo.com/jdih/'.$en_name.'.pdf');
 	}
+
 	public function list_jdih()
 	{
 		$this->load->view('jdih/jdih_list');
@@ -212,32 +219,62 @@ class Jdih extends CI_Controller {
 	{
 		$this->load->helper('security');
 		$name = $this->kode().'.pdf';
-		echo $name;
 		$en_name = do_hash($name, 'md5');
 		
 		$config = array(
 		'upload_path' => "uploads/",
-		// 'upload_path' => "dt.rspantiwaluyo/jdih",
 		'file_name' => $en_name,
 		'allowed_types' => "pdf",
-		// 'overwrite' => TRUE,
 		'max_size' => "2048000",
-		// 'encrypt_name' => TRUE
 		);
 		$this->load->library('upload', $config);
+
 		if($this->upload->do_upload('data'))
 		{
-		// $data = array('upload_data' => $this->upload->data());
-		echo 'sukses';
-		
+			$upload_data = $this->upload->data();
+        	$fileName = $upload_data['file_name'];
+                
+        	//File path at local server
+        	$source = 'uploads/'.$fileName;
+                
+        	//Load codeigniter FTP class
+        	$this->load->library('ftp');
+                
+			//FTP configuration
+			$ciphertext = 'bqySZoc9IFNZfT+lAUW1tFIQPGyNhgtqq/Iv5U5Zdhs7BQ+SAbbmbYgwnva56gKnZN6+zEl1lPbVL+hgBZSEBQ==';
+			$c = base64_decode($ciphertext);
+			$ivlen = openssl_cipher_iv_length($cipher="AES-256-CBC");
+			$iv = substr($c, 0, $ivlen);
+			$hmac = substr($c, $ivlen, $sha2len=32);
+			$ciphertext_raw = substr($c, $ivlen+$sha2len);
+			$key = 'RSPW5010';
+			$original_plaintext = openssl_decrypt($ciphertext_raw, $cipher, $key, $options=OPENSSL_RAW_DATA, $iv);
+
+			$ftp_config['hostname'] = 'dt.rspantiwaluyo.com'; 
+        	$ftp_config['username'] = 'ftp-rspw';
+			$ftp_config['password'] = $original_plaintext;
+			$ftp_config['port']		= 2121;
+        	$ftp_config['debug']    = TRUE;
+                
+        	//Connect to the remote server
+        	$this->ftp->connect($ftp_config);
+                
+        	//File upload path of remote server
+			$destination = '/Web/upload/jdih/'.$fileName;
+                
+        	//Upload file to the remote server
+        	$this->ftp->upload($source, ".".$destination);
+                
+        	//Close FTP connection
+        	$this->ftp->close();
+                
+        	//Delete file from local server
+        	@unlink($source);
 		}
 		else
 		{
-		// $error = array('error' => $this->upload->display_errors());
-		echo 'gagal';
-		$this->session->set_flashdata('messages', 'Upload Data Peraturan Gagal');
-		redirect(base_url('Jdih/list_jdih'));
-		
+			$this->session->set_flashdata('messages', 'Upload Data Peraturan Gagal');
+			redirect(base_url('Jdih/list_jdih'));
 		}
 	}
 
@@ -249,7 +286,6 @@ class Jdih extends CI_Controller {
 
 		$config = array(
 			'upload_path' => "uploads/",
-			// 'upload_path' => "dt.rspantiwaluyo/jdih/",
 			'file_name' => $en_name,
 			'allowed_types' => "pdf",
 			'overwrite' => TRUE,
@@ -258,9 +294,50 @@ class Jdih extends CI_Controller {
 		$this->load->library('upload', $config);
 		if($this->upload->do_upload('data'))
 		{
-			echo 'sukses';
+			
+			$upload_data = $this->upload->data();
+			$fileName = $upload_data['file_name'];
+        // //File path at local server
+        	$source = 'uploads/'.$fileName;
+                
+        // //Load codeigniter FTP class
+        	$this->load->library('ftp');
+                
+		//FTP configuration
+			
+			$ciphertext = 'bqySZoc9IFNZfT+lAUW1tFIQPGyNhgtqq/Iv5U5Zdhs7BQ+SAbbmbYgwnva56gKnZN6+zEl1lPbVL+hgBZSEBQ==';
+			$c = base64_decode($ciphertext);
+			$ivlen = openssl_cipher_iv_length($cipher="AES-256-CBC");
+			$iv = substr($c, 0, $ivlen);
+			$hmac = substr($c, $ivlen, $sha2len=32);
+			$ciphertext_raw = substr($c, $ivlen+$sha2len);
+			$key = 'RSPW5010';
+			$original_plaintext = openssl_decrypt($ciphertext_raw, $cipher, $key, $options=OPENSSL_RAW_DATA, $iv);
+
+			$ftp_config['hostname'] = 'dt.rspantiwaluyo.com'; 
+        	$ftp_config['username'] = 'ftp-rspw';
+			$ftp_config['password'] = $original_plaintext;
+			$ftp_config['port']		= 2121;
+			$ftp_config['debug']    = TRUE;
+			
+        //Connect to the remote server
+        	$this->ftp->connect($ftp_config);
+        
+        //File upload path of remote server
+        	$destination = '/Web/upload/jdih/'.$fileName;
+                
+        //Upload file to the remote server
+        	$this->ftp->upload($source, ".".$destination);
+                
+        //Close FTP connection
+        	$this->ftp->close();
+                
+        //Delete file from local server
+        	@unlink($source);
 		}else{
-			echo 'gagal';
+			// echo 'gagal';
+			$this->session->set_flashdata('messages', 'Upload Data Peraturan Gagal');
+			redirect(base_url('Jdih/list_jdih'));
 		}
 	}
 
@@ -278,14 +355,12 @@ class Jdih extends CI_Controller {
 
 		if($this->uri->segment(3))
 		{	
-		    $data   = file_get_contents('uploads/'.$en_name.'.pdf');
-		    // $data   = file_get_contents('dt.rspantiwaluyo/jdih/'.$en_name.'.pdf');
+		    // $data   = file_get_contents('uploads/'.$en_name.'.pdf');
+		    $data   = file_get_contents('https://dt.rspantiwaluyo.com/jdih/'.$en_name.'.pdf');
 		}
 		// $name   = $this->uri->segment(3);
 		$name = $nm_prtn.'.pdf';
 		force_download($name, $data);
-
-		// force_download('uploads/'.$id,NULL);
 	}
 
 	public function read_pdf($id){

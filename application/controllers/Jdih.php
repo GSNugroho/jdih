@@ -10,6 +10,7 @@ class Jdih extends CI_Controller {
 			$this->load->library('session');
 			$this->load->model('M_jdih');
 			$this->load->library('form_validation');
+			$this->load->library('ftp');
 		} else {
 			echo "Silahkan Login Terlebih Dahulu";
 			// print_r($_SESSION); 
@@ -158,6 +159,11 @@ class Jdih extends CI_Controller {
 			$r_lingkup = '';
 		}
 
+		$js_prtn = $this->M_jdih->get_by_id_jns($row->jns_prtn);
+		if($js_prtn){
+			$j_prtn = $js_prtn->nm_jdih_jns;
+		}
+
 		$sp = $row->sts_prtn;
 		if($sp == 1){
 			$sts_prtn = 'Berlaku';
@@ -169,7 +175,7 @@ class Jdih extends CI_Controller {
 			$data = array(
 				'kd_jdih' => set_value('kd_jdih', $row->kd_jdih),
 				'r_lingkup' => $r_lingkup,
-				'jns_prtn' => set_value('jns_prtn', $row->jns_prtn),
+				'jns_prtn' => $j_prtn,
 				'th_prtn' => set_value('th_prtn', $row->th_prtn),
 				'nmr_prtn' => set_value('nmr_prtn', $row->nmr_prtn),
 				'nm_prtn' => set_value('nm_prtn', $row->nm_prtn),
@@ -200,6 +206,7 @@ class Jdih extends CI_Controller {
 
 	public function delete_file($id){
 		$this->load->helper('security');
+		$this->load->helper('file');
 		
 		// $path = base_url('uploads/');
 		$e_name = $id.'.pdf';
@@ -211,6 +218,7 @@ class Jdih extends CI_Controller {
 	{
 		$this->load->view('jdih/jdih_list');
 	}
+
 	public function daftar_prtn(){
 		$this->load->view('jdih/jdih_daftar');
 	}
@@ -238,7 +246,7 @@ class Jdih extends CI_Controller {
         	$source = 'uploads/'.$fileName;
                 
         	//Load codeigniter FTP class
-        	$this->load->library('ftp');
+        	// $this->load->library('ftp');
                 
 			//FTP configuration
 			$ciphertext = 'bqySZoc9IFNZfT+lAUW1tFIQPGyNhgtqq/Iv5U5Zdhs7BQ+SAbbmbYgwnva56gKnZN6+zEl1lPbVL+hgBZSEBQ==';
@@ -301,7 +309,7 @@ class Jdih extends CI_Controller {
         	$source = 'uploads/'.$fileName;
                 
         // //Load codeigniter FTP class
-        	$this->load->library('ftp');
+        	// $this->load->library('ftp');
                 
 		//FTP configuration
 			
@@ -521,13 +529,13 @@ class Jdih extends CI_Controller {
 		</a>';
 		
 		$button = '
-		<a href="read/'.$row->kd_jdih.'" class="btn btn-info btn-circle ">
+		<a href="read/'.$row->kd_jdih.'" class="btn btn-info">
 		<i class="fa fa-info"></i>
 		</a>
-		<a href="update/'.$row->kd_jdih.'" class="btn btn-warning btn-circle">
+		<a href="update/'.$row->kd_jdih.'" class="btn btn-warning">
         <i class="fa fa-edit"></i>
         </a>
-		<a href="delete/'.$row->kd_jdih.'" class="btn btn-danger btn-circle">
+		<a href="delete/'.$row->kd_jdih.'" class="btn btn-danger">
 		<i class="fa fa-trash"></i>
 		</a>
 		';

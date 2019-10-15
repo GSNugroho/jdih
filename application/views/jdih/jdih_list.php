@@ -47,15 +47,15 @@
 	<table id="dataJDIH" class="table table-bordered table-striped">
 		<thead>
 		<tr>
-		<th>Nama Peraturan</th>
-		<th>Jenis Peraturan</th>
-		<th>Ruang Lingkup</th>
-		<th>Tahun Terbit</th>
-		<!-- <th>Nomor Peraturan</th> -->
+		<th width='25%'>Nama Peraturan</th>
+		<th width='15%'>Jenis Peraturan</th>
+		<th width='10%'>Ruang Lingkup</th>
+		<th width='5%'>Tahun Terbit</th>
+		<th width='20%'>Nomor Peraturan</th>
 		<!-- <th>Status Peraturan</th> -->
-		<th>Bagian Terkait</th>
+		<th width='10%'>Bagian Terkait</th>
 		<!-- <th>Pdf</th> -->
-		<th>Tindakan</th>
+		<th width='15%'>Tindakan</th>
 		</tr>
 		</thead>
 	</table>
@@ -101,7 +101,7 @@
 		 { data: 'jns_prtn' },
 		 { data: 'r_lingkup' },
 		 { data: 'th_prtn' },
-		//  { data: 'nmr_prtn' },
+		 { data: 'nmr_prtn' },
 		//  { data: 'sts_prtn' },
 		 { data: 'stru_prtn' },
 		//  { data: 'nm_doc_prtn' },

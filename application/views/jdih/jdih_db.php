@@ -2,6 +2,7 @@
     $this->load->view('jdih/jdih');
 ?>
     <script src="<?php echo base_url('assets/bower_components/chart.js/Chart.js')?>"></script>
+    <script src="<?php echo base_url('assets/bower_components/highchart/highcharts.js')?>"></script>
     <div class="container">
     <section class="content-header">
       <h1>
@@ -268,7 +269,9 @@
                 <!-- /.box-header -->
                 <div class="box-body no-padding">
                 <div class="chart">
-                  <canvas id="pieChart" style="height:250px"></canvas>
+                  <!-- <canvas id="pieChart" style="height:250px"></canvas> -->
+                  <div id="pieChart" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+                  <!-- <div id="js-legend" class="chart-legend"></div> -->
                 </div>
                   <!-- /.users-list -->
                 </div>
@@ -285,7 +288,9 @@
                 <!-- /.box-header -->
                 <div class="box-body no-padding">
                 <div class="chart">
-                  <canvas id="pieChart2" style="height:250px"></canvas>
+                  <!-- <canvas id="pieChart2" style="height:250px"></canvas> -->
+                  <div id="pieChart2" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+                  <!-- <div id="js-legend2" class="chart-legend"></div> -->
                 </div>
                   <!-- /.users-list -->
                 </div>
@@ -313,6 +318,7 @@
                     <th>Jenis Peraturan</th>
                     <th>Ruang Lingkup</th>
                     <th>Tahun</th>
+                    <th>Tanggal Upload</th>
                     <th>Pdf</th>
                   </tr>
                   <tbody>
@@ -320,7 +326,7 @@
                       foreach($prtn as $row){
                         $en_kd = base64_encode($row->kd_jdih);
                         if($row->r_lingkup == 1){ $lingkup = 'Nasional';}else{$lingkup = 'Internal RS';}
-                        echo '<tr><td>'.$row->nm_prtn.'</td><td>'.$row->nm_jdih_jns.'</td><td>'.$lingkup.'</td><td>'.$row->th_prtn.'</td><td><a href="Jdih/read_pdf/'.$row->kd_jdih.'" target="_blank">
+                        echo '<tr><td>'.$row->nm_prtn.'</td><td>'.$row->nm_jdih_jns.'</td><td>'.$lingkup.'</td><td>'.$row->th_prtn.'</td><td>'.date('d-m-Y', strtotime($row->date_create)).'</td><td><a href="Jdih/read_pdf/'.$row->kd_jdih.'" target="_blank">
                         <i class="fa fa-file-pdf-o"></i>
                         </a></td></tr>';
                       }
@@ -552,57 +558,82 @@
    </footer>
    </div>
   <script>
-    var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
-    var pieChart       = new Chart(pieChartCanvas)
-    var PieData        = [
-      <?php 
-        foreach($grafik as $row){
-          echo "{value: ".$row->total.", label : '".$row->nm_jdih_jns."'},";
+    
+    Highcharts.chart('pieChart', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: ''
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.y}</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: false
+            },
+            showInLegend: true
         }
-      ?>
-    ]
-    var pieOptions     = {
-      segmentShowStroke    : true,
-      segmentStrokeColor   : '#fff',
-      segmentStrokeWidth   : 2,
-      percentageInnerCutout: 50,
-      animationSteps       : 100,
-      animationEasing      : 'easeOutBounce',
-      animateRotate        : true,
-      animateScale         : false,
-      responsive           : true,
-      maintainAspectRatio  : true,
-      legendTemplate       : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<segments.length; i++){%><li><span style="background-color:<%=segments[i].fillColor%>"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>'
-    }
-    //Create pie or douhnut chart
-    // You can switch between pie and douhnut using the method below.
-    pieChart.Doughnut(PieData, pieOptions)
+    },
+    series: [{
+        name: 'Jumlah Peraturan',
+        colorByPoint: true,
+        data: [
+          <?php 
+            foreach($grafik as $row){
+              echo "{name: '".$row->nm_jdih_jns."', y: ".$row->total."},";
+            }
+          ?>
+        ]
+    }]
+});
 
-    var pieChartCanvas = $('#pieChart2').get(0).getContext('2d')
-    var pieChart = new Chart(pieChartCanvas)
-    var PieData = [
-      <?php
-        foreach($grafik2 as $row){
+
+Highcharts.chart('pieChart2', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: ''
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.y}</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: false
+            },
+            showInLegend: true
+        }
+    },
+    series: [{
+        name: 'Jumlah Peraturan',
+        colorByPoint: true,
+        data: [
+          <?php
+          foreach($grafik2 as $row){
           switch($row->r_lingkup){ case 1: $rl = 'Nasional';break; 
             case 2: $rl = 'Internal RS';break;}
-          echo "{value: ".$row->total.", label : '".$rl."'},";
+          echo "{name: '".$rl."', y: ".$row->total."},";
         }
       ?>
-    ]
-    var pieOptions     = {
-      segmentShowStroke    : true,
-      segmentStrokeColor   : '#fff',
-      segmentStrokeWidth   : 2,
-      percentageInnerCutout: 50,
-      animationSteps       : 100,
-      animationEasing      : 'easeOutBounce',
-      animateRotate        : true,
-      animateScale         : false,
-      responsive           : true,
-      maintainAspectRatio  : true,
-      legendTemplate       : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<segments.length; i++){%><li><span style="background-color:<%=segments[i].fillColor%>"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>'
-    }
-    pieChart.Doughnut(PieData, pieOptions)
+        ]
+    }]
+});
+
   </script>
 </body>
 </html>

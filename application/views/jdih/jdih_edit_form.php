@@ -93,7 +93,7 @@
 	<div class="form-group">
 		<input type="hidden" name="kd_jdih" id="kd_jdih" value="<?php echo $kd_jdih?>">
 		<input type='submit' name='submit' value='Simpan' class="btn btn-primary"/>
-		<a href="<?php echo base_url('Jdih/list_jdih') ?>" class="btn btn-danger">Batal</a>
+		<a href="javascript:history.go(-1)" class="btn btn-danger">Batal</a>
 	</div>
 	</form>
 </div>

@@ -138,8 +138,9 @@ class Jdih extends CI_Controller {
 		);
 		
 		if(!empty($_FILES)){
-		$this->do_upload_update($this->input->post('kd_jdih'));
-		}else{echo "Lanjut"; echo $this->input->post('data');}
+			$this->do_upload_update($this->input->post('kd_jdih'));			
+		}else{
+			$this->input->post('data');}
 
 		$this->M_jdih->update($this->input->post('kd_jdih'), $data);
 		$this->session->set_flashdata('message', 'Sunting Data Peraturan Berhasil');
@@ -344,8 +345,8 @@ class Jdih extends CI_Controller {
         	@unlink($source);
 		}else{
 			// echo 'gagal';
-			$this->session->set_flashdata('messages', 'Upload Data Peraturan Gagal');
-			redirect(base_url('Jdih/list_jdih'));
+			// $this->session->set_flashdata('messages', 'Upload Data Peraturan Gagal');
+			// redirect(base_url('Jdih/list_jdih'));
 		}
 	}
 

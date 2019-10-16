@@ -17,7 +17,7 @@
 		<th>Jenis Peraturan</th>
 		<th>Ruang Lingkup</th>
 		<th>Tahun Terbit</th>
-		<!-- <th>Nomor Peraturan</th> -->
+		<th>Nomor Peraturan</th>
 		<!-- <th>Status Peraturan</th> -->
 		<th>Bagian Terkait</th>
 		<th>Unduh Pdf</th>
@@ -67,7 +67,7 @@
 		 { data: 'jns_prtn' },
 		 { data: 'r_lingkup' },
 		 { data: 'th_prtn' },
-		//  { data: 'nmr_prtn' },
+		 { data: 'nmr_prtn' },
 		//  { data: 'sts_prtn' },
 		 { data: 'stru_prtn' },
 		 { data: 'nm_doc_prtn' },

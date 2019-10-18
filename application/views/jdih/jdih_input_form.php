@@ -9,9 +9,11 @@
 	<script src="<?php echo base_url('assets/datepicker/js/jquery-1.11.3.min.js')?>"></script>
 	<script src="<?php echo base_url('assets/datepicker/js/bootstrap-datetimepicker.js')?>"></script>
 	<link rel="stylesheet" href="<?php echo base_url('assets/bower_components/jquery-ui/themes/smoothness/jquery-ui.css')?>">
+	<link rel="stylesheet" href="<?php echo base_url('assets/bower_components/uploadifive/uploadifive.css')?>">
+	<script src="<?php echo base_url('assets/bower_components/uploadifive/jquery.uploadifive.min.js')?>"></script>
 
-<script src="<?php echo base_url('assets/bower_components/jquery-ui/jquery-ui.js')?>"></script>
-<style>
+	<script src="<?php echo base_url('assets/bower_components/jquery-ui/jquery-ui.js')?>"></script>
+<style type="text/css">
        .ui-autocomplete {
             max-height: 200px;
             overflow-y: auto;
@@ -20,6 +22,18 @@
             /* add padding to account for vertical scrollbar */
             padding-right: 20px;
         } 
+		#queue{
+			border: 1px solid #E5E5E5;
+			height: 177px;
+			overflow: auto;
+			margin-bottom: 10px;
+			padding: 0 3px 3px;
+			width: 100%;
+		}
+		.uploadifive-button {
+			float: left;
+			margin-right: 10px;
+		}
 </style>
 
     <div class="container">
@@ -81,6 +95,13 @@
 		<input class="form-control" type="file" name="data" id="doc"><?php echo $datau?>
 	</div>
 	<div class="form-group">
+	<form>
+		<div id="queue"></div>
+		<input id="file_upload" name="file_upload" type="file" multiple="true"/>
+		<input id="uploaddata" style= "background-color: #686868; color: white; height: 30px; line-height: 30px; overflow: hidden; position: relative; text-align: center; width: auto; z-index: 999;" type="button" onClick="javascript:$('#file_upload').uploadifive('upload')" value="Upload Dokumen"/>
+	</form>
+	</div>
+	<div class="form-group">
 		<input type='submit' name='submit' value='Simpan' class="btn btn-primary"/>
 		<a href="<?php echo base_url('Jdih/list_jdih') ?>" class="btn btn-danger">Batal</a>
 	</div>
@@ -99,7 +120,7 @@
      <!-- /.container -->
    </footer> 
 </div>
-<script>
+<script type="text/javascript">
 $(function() {
     $("#jns_prtn").autocomplete({
         source: "<?php echo base_url('Jdih/autojenis'); ?>",
@@ -119,6 +140,23 @@ $(function() {
 $(function() { 
   	$('#th_prtn').datetimepicker({locale:'id',format : "YYYY"});
 	});
+</script>
+
+<script type="text/javascript">
+	<?php $timestamp = time();?>
+		$(function() {
+			$('#file_upload').uploadifive({
+				'auto'             : false,
+				'checkScript'      : '<?php echo base_url().'Jdih/check'?>',
+				'formData'         : {
+									   'timestamp' : '<?php echo $timestamp;?>',
+									   'token'     : '<?php echo md5('unique_salt' . $timestamp);?>'
+				                     },
+				'queueID'          : 'queue',
+				'uploadScript'     : '<?php echo base_url().'Jdih/uploadifive'?>',
+				'onUploadComplete' : function(file, data) { console.log(data); }
+			});
+		});
 </script>
 </body>
 </html>

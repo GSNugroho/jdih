@@ -95,7 +95,6 @@ class Jdih extends CI_Controller {
 		$this->form_validation->set_rules('nm_prtn', 'Nama Peraturan', 'trim|required');
 		$this->form_validation->set_rules('sts_prtn', 'Status Peraturan', 'trim|required');
 		$this->form_validation->set_rules('stru_prtn', 'Struktur Yang Berkaitan', 'trim|required');
-		// $this->form_validation->set_rules('data', 'Upload', 'trim|required');
 
 		$this->form_validation->set_error_delimiters('<i class="fa fa-fw fa-info-circle text-danger"></i><span class="text-danger">', '</span>');
 	}
@@ -246,9 +245,6 @@ class Jdih extends CI_Controller {
         	//File path at local server
         	$source = 'uploads/'.$fileName;
                 
-        	//Load codeigniter FTP class
-        	// $this->load->library('ftp');
-                
 			//FTP configuration
 			$ciphertext = 'bqySZoc9IFNZfT+lAUW1tFIQPGyNhgtqq/Iv5U5Zdhs7BQ+SAbbmbYgwnva56gKnZN6+zEl1lPbVL+hgBZSEBQ==';
 			$c = base64_decode($ciphertext);
@@ -309,9 +305,6 @@ class Jdih extends CI_Controller {
         // //File path at local server
         	$source = 'uploads/'.$fileName;
                 
-        // //Load codeigniter FTP class
-        	// $this->load->library('ftp');
-                
 		//FTP configuration
 			
 			$ciphertext = 'bqySZoc9IFNZfT+lAUW1tFIQPGyNhgtqq/Iv5U5Zdhs7BQ+SAbbmbYgwnva56gKnZN6+zEl1lPbVL+hgBZSEBQ==';
@@ -329,7 +322,7 @@ class Jdih extends CI_Controller {
 			$ftp_config['port']		= 2121;
 			$ftp_config['debug']    = TRUE;
 			
-        //Connect to the remote server
+        // Connect to the remote server
         	$this->ftp->connect($ftp_config);
         
         //File upload path of remote server
@@ -343,10 +336,6 @@ class Jdih extends CI_Controller {
                 
         //Delete file from local server
         	@unlink($source);
-		}else{
-			// echo 'gagal';
-			// $this->session->set_flashdata('messages', 'Upload Data Peraturan Gagal');
-			// redirect(base_url('Jdih/list_jdih'));
 		}
 	}
 
@@ -477,6 +466,48 @@ class Jdih extends CI_Controller {
 			$nmr_br = $noUrut.'/'.$char1.'/'.$char3.'/'.$char2;
 			return $nmr_br;
 
+		}
+	}
+
+	function uploadifive(){
+		$targetFolder = '/jdih/uploads';
+
+		// Set the allowed file extensions
+		$fileTypes = array('jpg', 'jpeg', 'gif', 'png', 'pdf'); // Allowed file extensions
+
+		$verifyToken = md5('unique_salt' . $_POST['timestamp']);
+
+		if (!empty($_FILES) && $_POST['token'] == $verifyToken) {
+			$tempFile   = $_FILES['Filedata']['tmp_name'];
+			$uploadDir  = $_SERVER['DOCUMENT_ROOT'] . $targetFolder;
+			//$targetFile = $uploadDir . basename($_FILES['Filedata']['name']);
+			$targetFile = rtrim($uploadDir, '/') . '/' . $_FILES['Filedata']['name'];
+			echo $targetFile;
+			// Validate the filetype
+			$fileParts = pathinfo($_FILES['Filedata']['name']);
+			if (in_array(strtolower($fileParts['extension']), $fileTypes)) {
+
+				// Save the file
+				move_uploaded_file($tempFile, $targetFile);
+				// echo $targetFile;
+				echo 1;
+
+			} else {
+
+				// The file type wasn't allowed
+				echo 'Invalid file type.';
+
+			}
+		}
+	}
+
+	function check(){
+		$targetFolder = '/jdih/uploads'; // Relative to the root and should match the upload folder in the uploader script/
+
+		if (file_exists($_SERVER['DOCUMENT_ROOT'] . $targetFolder . '/' . $_POST['filename'])) {
+			echo 1;
+		} else {
+			echo 0;
 		}
 	}
 

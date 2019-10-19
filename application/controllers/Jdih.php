@@ -47,6 +47,7 @@ class Jdih extends CI_Controller {
 			'dd_jns' => $this->M_jdih->get_jns(),
 			'r_lingkup' => set_value('r_lingkup'),
 			'jns_prtn' => set_value('jns_prtn'),
+			'id_jns_prtn' => set_value('id_jns_prtn'),
 			'th_prtn' => set_value('th_prtn'),
 			'nmr_prtn' => set_value('nmr_prtn'),
 			'nm_prtn' => set_value('nm_prtn'),
@@ -90,6 +91,7 @@ class Jdih extends CI_Controller {
 	{
 		$this->form_validation->set_rules('r_lingkup', 'Ruang Lingkup', 'trim|required');
 		$this->form_validation->set_rules('jns_prtn', 'Jenis Peraturan', 'trim|required');
+		$this->form_validation->set_rules('id_jns_prtn', 'Jenis Peraturan', 'trim|required');
 		$this->form_validation->set_rules('th_prtn', 'Tahun Peraturan', 'trim|required');
 		$this->form_validation->set_rules('nmr_prtn', 'Nomor Peraturan', 'trim|required');
 		$this->form_validation->set_rules('nm_prtn', 'Nama Peraturan', 'trim|required');
@@ -261,20 +263,20 @@ class Jdih extends CI_Controller {
 			$ftp_config['port']		= 2121;
         	$ftp_config['debug']    = TRUE;
                 
-        	//Connect to the remote server
-        	$this->ftp->connect($ftp_config);
+        	// //Connect to the remote server
+        	// $this->ftp->connect($ftp_config);
                 
-        	//File upload path of remote server
-			$destination = '/Web/upload/jdih/'.$fileName;
+        	// //File upload path of remote server
+			// $destination = '/Web/upload/jdih/'.$fileName;
                 
-        	//Upload file to the remote server
-        	$this->ftp->upload($source, ".".$destination);
+        	// //Upload file to the remote server
+        	// $this->ftp->upload($source, ".".$destination);
                 
-        	//Close FTP connection
-        	$this->ftp->close();
+        	// //Close FTP connection
+        	// $this->ftp->close();
                 
-        	//Delete file from local server
-        	@unlink($source);
+        	// //Delete file from local server
+        	// @unlink($source);
 		}
 		else
 		{
@@ -531,6 +533,7 @@ class Jdih extends CI_Controller {
 		th_prtn like '%".$searchValue."%' or 
 		nmr_prtn like '%".$searchValue."%' or 
 		nm_prtn like '%".$searchValue."%' or
+		nm_sts like '%".$searchValue."%' or
 		stru_prtn like '%".$searchValue."%' ) ";
 		}
 
@@ -604,6 +607,7 @@ class Jdih extends CI_Controller {
 			"th_prtn" => $row->th_prtn,
 			"nmr_prtn" => $row->nmr_prtn,
 			"nm_prtn" => $row->nm_prtn,
+			"sts_prtn" => $row->nm_sts,
 			"stru_prtn" => $row->stru_prtn,
 			"nm_doc_prtn" => $pdf,
 			"action" => $button

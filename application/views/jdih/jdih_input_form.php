@@ -55,7 +55,7 @@
 	<div class="form-group">
 		<label for="jns_prtn">Jenis Peraturan </label><?php echo form_error('jns_prtn')?>
 		<input class="form-control" type="text" name="jns_prtn" id="jns_prtn" placeholder="Jenis Peraturan" value="<?php echo $jns_prtn?>">
-		<input type="hidden" name="id_jns_prtn" id="id_jns_prtn">
+		<input type="hidden" name="id_jns_prtn" id="id_jns_prtn" value="<?php echo $id_jns_prtn?>">
 		<!-- <select name="jns_prtn" class="form-control" id="jns_prtn"> -->
 		<!-- <option value="">--Pilih Jenis Peraturan--</option> -->
 		<?php
@@ -98,7 +98,7 @@
 	<form>
 		<div id="queue"></div>
 		<input id="file_upload" name="file_upload" type="file" multiple="true"/>
-		<input id="uploaddata" style= "background-color: #686868; color: white; height: 30px; line-height: 30px; overflow: hidden; position: relative; text-align: center; width: auto; z-index: 999;" type="button" onClick="javascript:$('#file_upload').uploadifive('upload')" value="Upload Dokumen"/>
+		<input id="uploaddata" style= "border-radius: 20px; background-color: #686868; color: white; height: 30px; line-height: 30px; overflow: hidden; position: relative; text-align: center; width: auto; z-index: 999;" type="button" onClick="javascript:$('#file_upload').uploadifive('upload')" value="Upload Dokumen"/>
 	</form>
 	</div>
 	<div class="form-group">

@@ -25,18 +25,24 @@ class M_jdih extends CI_Model{
 	}
 	
 	function get_total_dt(){
-		$query = $this->db->query("SELECT count(*) as allcount FROM SKR_Jdih JOIN SKR_Jdih_jns ON SKR_Jdih.jns_prtn = SKR_Jdih_jns.id_jns WHERE SKR_Jdih.dl_sts = 1");
+		$query = $this->db->query("SELECT count(*) as allcount FROM SKR_Jdih 
+		JOIN SKR_Jdih_jns ON SKR_Jdih.jns_prtn = SKR_Jdih_jns.id_jns 
+		JOIN SKR_Jdih_status ON SKR_Jdih.sts_prtn = SKR_Jdih_status.id_sts
+		WHERE SKR_Jdih.dl_sts = 1");
 		return $query->result();
 	}
 
 	function get_total_fl($searchQuery){
-		$query = $this->db->query("SELECT count(*) as allcount FROM SKR_Jdih JOIN SKR_Jdih_jns ON SKR_Jdih.jns_prtn = SKR_Jdih_jns.id_jns WHERE 1=1 AND SKR_Jdih.dl_sts = 1".$searchQuery);
+		$query = $this->db->query("SELECT count(*) as allcount FROM SKR_Jdih 
+		JOIN SKR_Jdih_jns ON SKR_Jdih.jns_prtn = SKR_Jdih_jns.id_jns 
+		JOIN SKR_Jdih_status ON SKR_Jdih.sts_prtn = SKR_Jdih_status.id_sts
+		WHERE SKR_Jdih.dl_sts = 1 ".$searchQuery);
 		return $query->result();
 	}
 
 	function get_total_ft($searchQuery, $columnName, $columnSortOrder, $baris, $rowperpage){
-		$query = $this->db->query("SELECT TOP ".$rowperpage." * FROM SKR_Jdih JOIN SKR_Jdih_jns ON SKR_Jdih.jns_prtn = SKR_Jdih_jns.id_jns WHERE 1=1 AND SKR_Jdih.dl_sts = 1".$searchQuery." and SKR_Jdih.kd_jdih NOT IN (
-			SELECT TOP ".$baris." SKR_Jdih.kd_jdih FROM SKR_Jdih JOIN SKR_Jdih_jns ON SKR_Jdih.jns_prtn = SKR_Jdih_jns.id_jns WHERE 1=1 AND SKR_Jdih.dl_sts = 1".$searchQuery." order by ".$columnName." ".$columnSortOrder.")
+		$query = $this->db->query("SELECT TOP ".$rowperpage." * FROM SKR_Jdih JOIN SKR_Jdih_jns ON SKR_Jdih.jns_prtn = SKR_Jdih_jns.id_jns JOIN SKR_Jdih_status ON SKR_Jdih.sts_prtn = SKR_Jdih_status.id_sts WHERE 1=1 AND SKR_Jdih.dl_sts = 1".$searchQuery." and SKR_Jdih.kd_jdih NOT IN (
+			SELECT TOP ".$baris." SKR_Jdih.kd_jdih FROM SKR_Jdih JOIN SKR_Jdih_jns ON SKR_Jdih.jns_prtn = SKR_Jdih_jns.id_jns JOIN SKR_Jdih_status ON SKR_Jdih.sts_prtn = SKR_Jdih_status.id_sts WHERE 1=1 AND SKR_Jdih.dl_sts = 1".$searchQuery." order by ".$columnName." ".$columnSortOrder.")
 			order by ".$columnName." ".$columnSortOrder);
 		return $query->result();
 	}
@@ -130,11 +136,11 @@ class M_jdih extends CI_Model{
         $this->db->from('pubgugus');
         
         //fetch data by conditions
-        // if(array_key_exists("conditions",$params)){
-        //     foreach ($params['conditions'] as $key => $value) {
-        //         $this->db->where($key,$value);
-        //     }
-        // }
+        if(array_key_exists("conditions",$params)){
+            foreach ($params['conditions'] as $key => $value) {
+                $this->db->where($key,$value);
+            }
+        }
         
         //search by terms
         if(!empty($params['searchTerm'])){

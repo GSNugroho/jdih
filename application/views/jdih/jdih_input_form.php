@@ -83,7 +83,7 @@
 		<select class="form-control" name="sts_prtn" id="sts_prtn">
 			<option value="">--Pilih Status Peraturan--</option>
 			<option value="1" <?php echo ($sts_prtn == '1')?'selected':''?>>Berlaku</option>
-			<option value="2" <?php echo ($sts_prtn == '2')?'selected':''?>>Tidak Berlaku</option>
+			<option value="2" <?php echo ($sts_prtn == '2')?'selected':''?>>Tidak</option>
 		</select>
 	</div>
 	<div class="form-group">
@@ -94,13 +94,13 @@
 		<label for="doc">Upload Dokumen </label><?php echo form_error('data')?>
 		<input class="form-control" type="file" name="data" id="doc"><?php echo $datau?>
 	</div>
-	<div class="form-group">
+	<!-- <div class="form-group">
 	<form>
 		<div id="queue"></div>
 		<input id="file_upload" name="file_upload" type="file" multiple="true"/>
 		<input id="uploaddata" style= "border-radius: 20px; background-color: #686868; color: white; height: 30px; line-height: 30px; overflow: hidden; position: relative; text-align: center; width: auto; z-index: 999;" type="button" onClick="javascript:$('#file_upload').uploadifive('upload')" value="Upload Dokumen"/>
 	</form>
-	</div>
+	</div> -->
 	<div class="form-group">
 		<input type='submit' name='submit' value='Simpan' class="btn btn-primary"/>
 		<a href="<?php echo base_url('Jdih/list_jdih') ?>" class="btn btn-danger">Batal</a>
@@ -142,21 +142,21 @@ $(function() {
 	});
 </script>
 
-<script type="text/javascript">
-	<?php $timestamp = time();?>
+<!-- <script type="text/javascript">
+	<?php //$timestamp = time();?>
 		$(function() {
 			$('#file_upload').uploadifive({
 				'auto'             : false,
-				'checkScript'      : '<?php echo base_url().'Jdih/check'?>',
+				'checkScript'      : '<?php //echo base_url().'Jdih/check'?>',
 				'formData'         : {
-									   'timestamp' : '<?php echo $timestamp;?>',
-									   'token'     : '<?php echo md5('unique_salt' . $timestamp);?>'
+									   'timestamp' : '<?php //echo $timestamp;?>',
+									   'token'     : '<?php //echo md5('unique_salt' . $timestamp);?>'
 				                     },
 				'queueID'          : 'queue',
-				'uploadScript'     : '<?php echo base_url().'Jdih/uploadifive'?>',
+				'uploadScript'     : '<?php //echo base_url().'Jdih/uploadifive'?>',
 				'onUploadComplete' : function(file, data) { console.log(data); }
 			});
 		});
-</script>
+</script> -->
 </body>
 </html>

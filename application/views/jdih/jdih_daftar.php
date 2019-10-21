@@ -7,7 +7,8 @@
 <div class="box box-info">
     <div class="box-header with-border">
         <h3 class="box-title">Daftar Peraturan</h3>
-    </div>
+	</div>
+	<p>&nbsp;&nbsp;&nbsp;<a href="<?php echo base_url('Jdih/export') ?>">Export Peraturan ke Excel</a></p>
 <div class="box-body">
 	<?php $error;?>
 	<table id="dataJDIH" class="table table-bordered table-striped">

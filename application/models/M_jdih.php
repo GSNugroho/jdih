@@ -161,6 +161,14 @@ class M_jdih extends CI_Model{
         //return fetched data
         return $result;
 	}
+
+	function getexport(){
+		$query = $this->db->query("SELECT nm_prtn, jns_prtn, r_lingkup, th_prtn, nmr_prtn, nm_sts, stru_prtn FROM SKR_Jdih
+				JOIN SKR_Jdih_jns ON SKR_Jdih.jns_prtn = SKR_Jdih_jns.id_jns
+				JOIN SKR_Jdih_status ON SKR_Jdih.sts_prtn = SKR_Jdih_status.id_sts
+				WHERE SKR_Jdih.dl_sts = 1");
+		return $query->result();
+	}
 	
 	function get_prtn_baru(){
 		$query = $this->db->query("SELECT TOP 5 * FROM SKR_Jdih JOIN SKR_Jdih_jns ON SKR_Jdih.jns_prtn = SKR_Jdih_jns.id_jns WHERE dl_sts = 1 ORDER BY date_create desc");

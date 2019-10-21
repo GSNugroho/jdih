@@ -1,6 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+require('./application/third_party/vendor/autoload.php');
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 class Jdih extends CI_Controller {
 
 	public function __construct()
@@ -377,6 +381,52 @@ class Jdih extends CI_Controller {
 		$en_name = do_hash($e_name, 'md5');
 		$data = array('en_name' => $en_name);
 		$this->load->view('jdih/jdih_read_pdf', $data);
+	}
+
+	public function export_excel(){
+		$this->load->view('jdih/jdih_export');
+	}
+
+	public function export(){
+		$data = $this->M_jdih->getexport();
+
+		$spreadsheet = new Spreadsheet;
+
+		$spreadsheet->setActiveSheetIndex(0)
+					->setCellValue('A1', 'No')
+					->setCellValue('B1', 'Nama Peraturan')
+					->setCellValue('C1', 'Jenis Peraturan')
+					->setCellValue('D1', 'Ruang Lingkup')
+					->setCellValue('E1', 'Tahun Terbit')
+					->setCellValue('F1', 'Nomor Peraturan')
+					->setCellValue('G1', 'Status Peraturan')
+					->setCellValue('H1', 'Bagian Terkait');
+		$kolom = 2;
+		$nomor = 1;
+		foreach($data as $row) {
+
+               $spreadsheet->setActiveSheetIndex(0)
+                           ->setCellValue('A' . $kolom, $nomor)
+                           ->setCellValue('B' . $kolom, $row->nm_prtn)
+                           ->setCellValue('C' . $kolom, $row->jns_prtn)
+						   ->setCellValue('D' . $kolom, $row->r_lingkup)
+                           ->setCellValue('E' . $kolom, $row->th_prtn)
+                           ->setCellValue('F' . $kolom, $row->nmr_prtn)
+                           ->setCellValue('G' . $kolom, $row->nm_sts)
+                           ->setCellValue('H' . $kolom, $row->stru_prtn);
+               $kolom++;
+               $nomor++;
+
+          }
+
+          $writer = new Xlsx($spreadsheet);
+
+        header('Content-Type: application/vnd.ms-excel');
+		header('Content-Disposition: attachment;filename="Data_PKS.xlsx"');
+		// header('Content-Disposition: attachment;filename="Data_PKS.xls"');
+	  	header('Cache-Control: max-age=0');
+
+	  $writer->save('php://output');
 	}
 
 	public function jns_prtn(){

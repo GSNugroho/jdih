@@ -267,20 +267,20 @@ class Jdih extends CI_Controller {
 			$ftp_config['port']		= 2121;
         	$ftp_config['debug']    = TRUE;
                 
-        	// //Connect to the remote server
-        	// $this->ftp->connect($ftp_config);
+        	//Connect to the remote server
+        	$this->ftp->connect($ftp_config);
                 
-        	// //File upload path of remote server
-			// $destination = '/Web/upload/jdih/'.$fileName;
+        	//File upload path of remote server
+			$destination = '/Web/upload/jdih/'.$fileName;
                 
-        	// //Upload file to the remote server
-        	// $this->ftp->upload($source, ".".$destination);
+        	//Upload file to the remote server
+        	$this->ftp->upload($source, ".".$destination);
                 
-        	// //Close FTP connection
-        	// $this->ftp->close();
+        	//Close FTP connection
+        	$this->ftp->close();
                 
-        	// //Delete file from local server
-        	// @unlink($source);
+        	//Delete file from local server
+        	@unlink($source);
 		}
 		else
 		{
@@ -575,15 +575,21 @@ class Jdih extends CI_Controller {
 
 		## Search 
 		$searchQuery = " ";
+		$searchByLingkup = $this->input->post('searchByLingkup');
+		$searchByStatus  = $this->input->post('searchByStatus');
+		if($searchByLingkup != ''){
+			$searchQuery .= "and r_lingkup = '".$searchByLingkup."'";
+		}
+		if($searchByStatus != ''){
+			$searchQuery .= "and sts_prtn = '".$searchByStatus."'";
+		}
+
 		if($searchValue != ''){
-		$searchQuery = " and (
-		 
-		r_lingkup like '%".$searchValue."%' or 
+		$searchQuery .= " and (
 		nm_jdih_jns like '%".$searchValue."%' or 
 		th_prtn like '%".$searchValue."%' or 
 		nmr_prtn like '%".$searchValue."%' or 
 		nm_prtn like '%".$searchValue."%' or
-		nm_sts like '%".$searchValue."%' or
 		stru_prtn like '%".$searchValue."%' ) ";
 		}
 
@@ -657,7 +663,7 @@ class Jdih extends CI_Controller {
 			"th_prtn" => $row->th_prtn,
 			"nmr_prtn" => $row->nmr_prtn,
 			"nm_prtn" => $row->nm_prtn,
-			"sts_prtn" => $row->nm_sts,
+			"sts_prtn" => $sts_prtn,
 			"stru_prtn" => $row->stru_prtn,
 			"nm_doc_prtn" => $pdf,
 			"action" => $button

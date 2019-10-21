@@ -41,7 +41,30 @@
         ?>
     <div class="box-header with-border">
 		<h3 class="box-title">Data Peraturan</h3>
-	</div>	
+	</div>
+	<table style="margin: 10px 0 0 10px">
+     <tr>
+       <td>
+		<div class="form-group">
+			<select id="r_lingkup" class="form-control" style="width:auto">
+				<option value="">--Ruang Lingkup--</option>
+				<option value="1">Nasional</option>
+				<option value="2">Internal RS</option>
+			</select>
+		</div>
+	   </td>
+	   <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+       <td>
+		<div class="form-group">
+			<select id="sts_prtn" class="form-control" style="width:auto">
+				<option value="">--Status--</option>
+				<option value="1">Berlaku</option>
+				<option value="2">Tidak Berlaku</option>
+			</select>
+		</div>
+       </td>
+     </tr>
+   	</table>
 <div class="box-body">
 	<?php $error;?>
 	<table id="dataJDIH" class="table table-bordered table-striped">
@@ -52,9 +75,7 @@
 		<th width='10%'>Ruang Lingkup</th>
 		<th width='5%'>Tahun Terbit</th>
 		<th width='20%'>Nomor Peraturan</th>
-		<!-- <th>Status Peraturan</th> -->
 		<th width='10%'>Bagian Terkait</th>
-		<!-- <th>Pdf</th> -->
 		<th width='15%'>Tindakan</th>
 		</tr>
 		</thead>
@@ -67,9 +88,8 @@
 <script src="<?php echo base_url('assets/bower_components/datatables.net/js/jquery.dataTables.min.js')?>"></script>
 <script src="<?php echo base_url('assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')?>"></script>
 <script>
-	
-	$(document).ready(function(){
-   $('#dataJDIH').DataTable({
+$(document).ready(function(){
+   var tables =$('#dataJDIH').DataTable({
 	language: {
 	"sEmptyTable":	 "Tidak ada data yang tersedia pada tabel ini",
 	"sProcessing":   "Sedang memproses...",
@@ -94,7 +114,15 @@
       'serverSide': true,
       'serverMethod': 'post',
       'ajax': {
-          'url':'<?php echo base_url().'Jdih/tbl_list'?>'
+          'url':'<?php echo base_url().'Jdih/tbl_list'?>',
+		  'data': function(data){
+			var status  = $('#sts_prtn').val();
+			var lingkup = $('#r_lingkup').val();
+
+			// Append to data
+			data.searchByStatus = status;
+			data.searchByLingkup = lingkup;
+		  }
       },
       'columns': [
 		 { data: 'nm_prtn' },
@@ -102,13 +130,20 @@
 		 { data: 'r_lingkup' },
 		 { data: 'th_prtn' },
 		 { data: 'nmr_prtn' },
-		//  { data: 'sts_prtn' },
 		 { data: 'stru_prtn' },
-		//  { data: 'nm_doc_prtn' },
          { data: 'action' }
       ]
 	});
-	});
+
+	$('#r_lingkup').on('change', function(){
+    tables.draw(true);
+  	});
+
+	$('#sts_prtn').on('change', function(){
+    tables.draw(true);
+  	});
+
+});
 	
 	$(document).ready(function(){setTimeout(function(){$(".pesan").fadeIn('slow');}, 0);});
 	setTimeout(function(){$(".pesan").fadeOut('slow');}, 3000);

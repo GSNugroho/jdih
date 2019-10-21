@@ -9,9 +9,32 @@
         <h3 class="box-title">Daftar Peraturan</h3>
 	</div>
 	<p>&nbsp;&nbsp;&nbsp;<a href="<?php echo base_url('Jdih/export') ?>">Export Peraturan ke Excel</a></p>
+	<table style="margin-left: 10px">
+     <tr>
+       <td>
+		<div class="form-group">
+			<select id="r_lingkup" class="form-control" style="width:auto">
+				<option value="">--Ruang Lingkup--</option>
+				<option value="1">Nasional</option>
+				<option value="2">Internal RS</option>
+			</select>
+		</div>
+	   </td>
+	   <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+       <td>
+		<div class="form-group">
+			<select id="sts_prtn" class="form-control" style="width:auto">
+				<option value="">--Status--</option>
+				<option value="1">Berlaku</option>
+				<option value="2">Tidak Berlaku</option>
+			</select>
+		</div>
+       </td>
+     </tr>
+   	</table>
 <div class="box-body">
 	<?php $error;?>
-	<table id="dataJDIH" class="table table-bordered table-striped">
+	<table id="datajdih" class="table table-bordered table-striped">
 		<thead>
 		<tr>
 		<th>Nama Peraturan</th>
@@ -35,8 +58,8 @@
 <script src="<?php echo base_url('assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')?>"></script>
 <script>
 	
-	$(document).ready(function(){
-   $('#dataJDIH').DataTable({
+$(document).ready(function(){
+	var tables = $('#datajdih').DataTable({
 	language: {
 	"sEmptyTable":	 "Tidak ada data yang tersedia pada tabel ini",
 	"sProcessing":   "Sedang memproses...",
@@ -61,7 +84,15 @@
       'serverSide': true,
       'serverMethod': 'post',
       'ajax': {
-          'url':'<?php echo base_url().'Jdih/tbl_list'?>'
+          'url':'<?php echo base_url().'Jdih/tbl_list'?>',
+		  'data': function(data){
+			var status  = $('#sts_prtn').val();
+			var lingkup = $('#r_lingkup').val();
+
+			// Append to data
+			data.searchByStatus = status;
+			data.searchByLingkup = lingkup;
+			}
       },
       'columns': [
 		 { data: 'nm_prtn' },
@@ -72,11 +103,18 @@
 		 { data: 'sts_prtn' },
 		 { data: 'stru_prtn' },
 		 { data: 'nm_doc_prtn' },
-        //  { data: 'action' }
       ]
 	});
-	});
-	
+		
+	$('#r_lingkup').on('change', function(){
+    tables.draw(true);
+  	});
+
+	$('#sts_prtn').on('change', function(){
+    tables.draw(true);
+  	});
+
+});
 </script>
 </div>
 </div>

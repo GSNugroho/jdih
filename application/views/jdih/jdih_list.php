@@ -73,8 +73,8 @@
 		<th width='25%'>Nama Peraturan</th>
 		<th width='15%'>Jenis Peraturan</th>
 		<th width='10%'>Ruang Lingkup</th>
-		<th width='5%'>Tahun Terbit</th>
-		<th width='20%'>Nomor Peraturan</th>
+		<th width='10%'>Tahun Terbit</th>
+		<th width='15%'>Nomor Peraturan</th>
 		<th width='10%'>Bagian Terkait</th>
 		<th width='15%'>Tindakan</th>
 		</tr>

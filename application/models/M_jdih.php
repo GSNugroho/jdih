@@ -130,7 +130,7 @@ class M_jdih extends CI_Model{
 	}
 	
 	function autostrk($params = array()){
-        $this->db->select("*");
+        $this->db->select("vc_k_gugus, vc_n_gugus");
         $this->db->from('pubgugus');
         
         //fetch data by conditions
@@ -161,9 +161,8 @@ class M_jdih extends CI_Model{
 	}
 
 	function getexport(){
-		$query = $this->db->query("SELECT nm_prtn, jns_prtn, r_lingkup, th_prtn, nmr_prtn, nm_sts, stru_prtn FROM SKR_Jdih
+		$query = $this->db->query("SELECT nm_prtn, jns_prtn, r_lingkup, th_prtn, nmr_prtn, sts_prtn, stru_prtn FROM SKR_Jdih
 				JOIN SKR_Jdih_jns ON SKR_Jdih.jns_prtn = SKR_Jdih_jns.id_jns
-				JOIN SKR_Jdih_status ON SKR_Jdih.sts_prtn = SKR_Jdih_status.id_sts
 				WHERE SKR_Jdih.dl_sts = 1");
 		return $query->result();
 	}

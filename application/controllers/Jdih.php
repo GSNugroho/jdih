@@ -412,7 +412,7 @@ class Jdih extends CI_Controller {
 						   ->setCellValue('D' . $kolom, $row->r_lingkup)
                            ->setCellValue('E' . $kolom, $row->th_prtn)
                            ->setCellValue('F' . $kolom, $row->nmr_prtn)
-                           ->setCellValue('G' . $kolom, $row->nm_sts)
+                           ->setCellValue('G' . $kolom, $row->sts_prtn)
                            ->setCellValue('H' . $kolom, $row->stru_prtn);
                $kolom++;
                $nomor++;
@@ -646,7 +646,6 @@ class Jdih extends CI_Controller {
 		}else{
 			$r_lingkup = '';
 		}
-
 
 		$sp = $row->sts_prtn;
 		if($sp == 1){

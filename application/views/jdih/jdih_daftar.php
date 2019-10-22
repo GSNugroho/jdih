@@ -2,6 +2,8 @@
 	$this->load->view('jdih/jdih');
 ?>
 <link rel="stylesheet" href="<?php echo base_url('assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')?>">
+<link rel="stylesheet" href="<?php //echo base_url('assets/bower_components/datatables.net-bs/css/jquery.dataTables.min.css')?>">
+<link rel="stylesheet" href="<?php echo base_url('assets/bower_components/datatables.net-bs/css/buttons.dataTables.min.css')?>">
 
     <div class="container">
 <div class="box box-info">
@@ -56,10 +58,20 @@
 </div>
 <script src="<?php echo base_url('assets/bower_components/datatables.net/js/jquery.dataTables.min.js')?>"></script>
 <script src="<?php echo base_url('assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')?>"></script>
+<script src="<?php echo base_url('assets/bower_components/datatables.net-bs/js/dataTables.buttons.min.js')?>"></script>
+<script src="<?php echo base_url('assets/bower_components/datatables.net-bs/js/jszip.min.js')?>"></script>
+<script src="<?php echo base_url('assets/bower_components/datatables.net-bs/js/pdfmake.min.js')?>"></script>
+<script src="<?php echo base_url('assets/bower_components/datatables.net-bs/js/vfs_fonts.js')?>"></script>
+<script src="<?php echo base_url('assets/bower_components/datatables.net-bs/js/buttons.flash.min.js')?>"></script>
+<script src="<?php echo base_url('assets/bower_components/datatables.net-bs/js/buttons.html5.min.js')?>"></script>
 <script>
 	
 $(document).ready(function(){
 	var tables = $('#datajdih').DataTable({
+		dom: 'Bfrtip',
+        buttons: [
+            "excel","pdf"
+        ],
 	language: {
 	"sEmptyTable":	 "Tidak ada data yang tersedia pada tabel ini",
 	"sProcessing":   "Sedang memproses...",

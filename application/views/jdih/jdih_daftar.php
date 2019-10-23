@@ -10,8 +10,7 @@
     <div class="box-header with-border">
         <h3 class="box-title">Daftar Peraturan</h3>
 	</div>
-	<p>&nbsp;&nbsp;&nbsp;<a href="<?php echo base_url('Jdih/export') ?>">Export Peraturan ke Excel</a></p>
-	<table style="margin-left: 10px">
+	<table style="margin-left: 10px; margin-top: 10px;">
      <tr>
        <td>
 		<div class="form-group">
@@ -68,9 +67,16 @@
 	
 $(document).ready(function(){
 	var tables = $('#datajdih').DataTable({
-		dom: 'Bfrtip',
+		dom: 'lBfrtip',
         buttons: [
-            "excel","pdf"
+			{
+				extend : 'excelHtml5',
+				text : 'Export Data Ke Excel',
+				title : 'Daftar Peraturan',
+				exportOptions : {
+					columns: [0, 1, 2, 3, 4, 5, 6]
+				}
+			},
         ],
 	language: {
 	"sEmptyTable":	 "Tidak ada data yang tersedia pada tabel ini",

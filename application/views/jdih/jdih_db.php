@@ -13,7 +13,7 @@
         <section class="content">
       
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
               <!-- USERS LIST -->
               <div class="box box-info">
                 <div class="box-header with-border">
@@ -23,7 +23,7 @@
                 <div class="box-body no-padding">
                 <div class="chart">
                   <!-- <canvas id="pieChart" style="height:250px"></canvas> -->
-                  <div id="pieChart" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+                  <div id="pieChart" style="min-width: 400px; height: 400px; max-width: auto; margin: 0 auto"></div>
                   <!-- <div id="js-legend" class="chart-legend"></div> -->
                 </div>
                   <!-- /.users-list -->
@@ -32,7 +32,9 @@
               </div>
               <!--/.box -->
             </div>
-            <div class="col-md-6">
+          </div>
+          <div class="row">
+            <div class="col-md-12">
               <!-- USERS LIST -->
               <div class="box box-info">
                 <div class="box-header with-border">
@@ -64,14 +66,14 @@
             <!-- /.box-header -->
             <div class="box-body">
               <div class="table-responsive">
-                <table class="table no-margin" id="dt_prtn_akhir">
+                <table class="table table-bordered" id="dt_prtn_akhir">
                   <thead>
                   <tr>
-                    <th>Nama Peraturan</th>
                     <th>Jenis Peraturan</th>
-                    <th>Ruang Lingkup</th>
-                    <th>Tahun</th>
                     <th>Nomor Peraturan</th>
+                    <th>Tahun</th>
+                    <th>Tentang</th>
+                    <th>Ruang Lingkup</th>
                     <th>Tanggal Upload</th>
                     <th>Pdf</th>
                   </tr>
@@ -80,7 +82,7 @@
                       foreach($prtn as $row){
                         $en_kd = base64_encode($row->kd_jdih);
                         if($row->r_lingkup == 1){ $lingkup = 'Nasional';}else{$lingkup = 'Internal RS';}
-                        echo '<tr><td>'.$row->nm_prtn.'</td><td>'.$row->nm_jdih_jns.'</td><td>'.$lingkup.'</td><td>'.$row->th_prtn.'</td><td>'.$row->nmr_prtn.'</td><td>'.date('d-m-Y', strtotime($row->date_create)).'</td><td><a href="Jdih/read_pdf/'.$row->kd_jdih.'" target="_blank">
+                        echo '<tr><td>'.$row->nm_jdih_jns.'</td><td>'.$row->nmr_prtn.'</td><td>'.$row->th_prtn.'</td><td>'.$row->nm_prtn.'</td><td>'.$lingkup.'</td><td>'.date('d-m-Y', strtotime($row->date_create)).'</td><td><a href="Jdih/read_pdf/'.$row->kd_jdih.'" target="_blank">
                         <i class="fa fa-file-pdf-o"></i>
                         </a></td></tr>';
                       }
@@ -327,7 +329,7 @@
         enabled: false
     },
     tooltip: {
-        pointFormat: '{series.name}: <b>{point.y}</b>'
+        pointFormat: '{series.name}: <b>{point.y}</b>',
     },
     plotOptions: {
         pie: {
@@ -338,6 +340,16 @@
             },
             showInLegend: true
         }
+    },
+    legend: {
+                enabled: true,
+                align: 'center',
+                // width: '100%',
+                // verticalAlign: 'bottom',
+                // useHTML: true,
+                labelFormatter: function() {
+                    return ' ' + this.name + ' : ' + this.percentage.toFixed (1) + '%';
+				        }
     },
     series: [{
         name: 'Jumlah Peraturan',
@@ -351,7 +363,6 @@
         ]
     }]
 });
-
 
 Highcharts.chart('pieChart2', {
     chart: {
@@ -378,6 +389,17 @@ Highcharts.chart('pieChart2', {
             },
             showInLegend: true
         }
+    },
+    legend: {
+                enabled: true,
+                align: 'center',
+                // width: '800px',
+                // verticalAlign: 'bottom',
+                // useHTML: true,
+                float: 'left',
+                labelFormatter: function() {
+                    return ' ' + this.name + ' : ' + this.percentage.toFixed (1) + '%';
+				        }
     },
     series: [{
         name: 'Jumlah Peraturan',

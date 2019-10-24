@@ -44,6 +44,23 @@
 	<?php //echo validation_errors();?>
 	<form role= "form" action="<?php echo base_url().'Jdih/create_action';?>" method="POST" enctype="multipart/form-data">
 	<div class="box-body">
+		<div class="form-group">
+			<label for="jns_prtn">Jenis Peraturan </label><?php echo form_error('jns_prtn')?>
+			<input class="form-control" type="text" name="jns_prtn" id="jns_prtn" placeholder="Jenis Peraturan" value="<?php echo $jns_prtn?>">
+			<input type="hidden" name="id_jns_prtn" id="id_jns_prtn" value="<?php echo $id_jns_prtn?>">
+		</div>
+		<div class="form-group">
+			<label for="nmr_prtn">Nomor Peraturan </label><?php echo form_error('nmr_prtn')?>
+			<input class="form-control" type="text" name="nmr_prtn" id="nmr_prtn" placeholder="Nomor Peraturan" value="<?php echo $nmr_prtn?>">
+		</div>
+		<div class="form-group"	>
+			<label for="th_prtn">Tahun Terbit Peraturan </label><?php echo form_error('th_prtn')?>
+			<input class="form-control" type="text" name="th_prtn" id="th_prtn" placeholder="Tahun Terbit Peraturan" value="<?php echo $th_prtn?>">
+		</div>
+		<div class="form-group">
+			<label for="nm_prtn">Tentang </label><?php echo form_error('nm_prtn')?>
+			<input class="form-control" type="text" name="nm_prtn" id="nm_prtn" placeholder="Tentang Peraturan" value="<?php echo $nm_prtn?>">
+		</div>
     <div class="form-group">
 		<label for="r_lingkup">Ruang Lingkup </label><?php echo form_error('r_lingkup')?>
 		<select name="r_lingkup" class="form-control" id="r_lingkup">
@@ -52,32 +69,6 @@
 			<option value="2" <?php echo ($r_lingkup == '2')?'selected':''?>>Internal RS</option>
 		</select>
     </div>
-	<div class="form-group">
-		<label for="jns_prtn">Jenis Peraturan </label><?php echo form_error('jns_prtn')?>
-		<input class="form-control" type="text" name="jns_prtn" id="jns_prtn" placeholder="Jenis Peraturan" value="<?php echo $jns_prtn?>">
-		<input type="hidden" name="id_jns_prtn" id="id_jns_prtn" value="<?php echo $id_jns_prtn?>">
-		<!-- <select name="jns_prtn" class="form-control" id="jns_prtn"> -->
-		<!-- <option value="">--Pilih Jenis Peraturan--</option> -->
-		<?php
-            // foreach ($dd_jns as $row) {  
-            // echo "<option value='".$row->id_jns."'>".$row->nm_jdih_jns."</option>";
-            // }
-            // echo"
-        	// </select>"
-        ?>
-	</div>
-	<div class="form-group"	>
-		<label for="th_prtn">Tahun Terbit Peraturan </label><?php echo form_error('th_prtn')?>
-		<input class="form-control" type="text" name="th_prtn" id="th_prtn" placeholder="Tahun Terbit Peraturan" value="<?php echo $th_prtn?>">
-	</div>
-	<div class="form-group">
-		<label for="nmr_prtn">Nomor Peraturan </label><?php echo form_error('nmr_prtn')?>
-		<input class="form-control" type="text" name="nmr_prtn" id="nmr_prtn" placeholder="Nomor Peraturan" value="<?php echo $nmr_prtn?>">
-	</div>
-	<div class="form-group">
-		<label for="nm_prtn">Nama Peraturan </label><?php echo form_error('nm_prtn')?>
-		<input class="form-control" type="text" name="nm_prtn" id="nm_prtn" placeholder="Nama Peraturan" value="<?php echo $nm_prtn?>">
-	</div>
 	<div class="form-group">
 		<label for="sts_prtn">Status Peraturan </label><?php echo form_error('sts_prtn')?>
 		<select class="form-control" name="sts_prtn" id="sts_prtn">

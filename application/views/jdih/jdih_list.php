@@ -70,13 +70,14 @@
 	<table id="dataJDIH" class="table table-bordered table-striped">
 		<thead>
 		<tr>
-		<th width='25%'>Nama Peraturan</th>
-		<th width='15%'>Jenis Peraturan</th>
-		<th width='10%'>Ruang Lingkup</th>
-		<th width='10%'>Tahun Terbit</th>
-		<th width='15%'>Nomor Peraturan</th>
-		<th width='10%'>Bagian Terkait</th>
-		<th width='15%'>Tindakan</th>
+			<th width='15%'>Jenis Peraturan</th>
+			<th width='15%'>Nomor Peraturan</th>
+			<th width='10%'>Tahun Terbit</th>
+			<th width='20%'>Tentang</th>
+			<th width='10%'>Ruang Lingkup</th>
+			<th width='5%'>Status</th>
+			<th width='10%'>Bagian Terkait</th>
+			<th width='15%'>Tindakan</th>
 		</tr>
 		</thead>
 	</table>
@@ -125,11 +126,12 @@ $(document).ready(function(){
 		  }
       },
       'columns': [
-		 { data: 'nm_prtn' },
 		 { data: 'jns_prtn' },
-		 { data: 'r_lingkup' },
-		 { data: 'th_prtn' },
 		 { data: 'nmr_prtn' },
+		 { data: 'th_prtn' },
+		 { data: 'nm_prtn' },
+		 { data: 'r_lingkup' },
+		 { data: 'sts_prtn' },
 		 { data: 'stru_prtn' },
          { data: 'action' }
       ]

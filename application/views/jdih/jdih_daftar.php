@@ -38,14 +38,14 @@
 	<table id="datajdih" class="table table-bordered table-striped">
 		<thead>
 		<tr>
-		<th>Nama Peraturan</th>
-		<th>Jenis Peraturan</th>
-		<th>Ruang Lingkup</th>
-		<th>Tahun Terbit</th>
-		<th>Nomor Peraturan</th>
-		<th>Status Peraturan</th>
-		<th>Bagian Terkait</th>
-		<th>Unduh Pdf</th>
+			<th>Jenis Peraturan</th>
+			<th>Nomor Peraturan</th>
+			<th>Tahun Terbit</th>
+			<th>Tentang</th>
+			<th>Ruang Lingkup</th>
+			<th>Status Peraturan</th>
+			<th>Bagian Terkait</th>
+			<th>Unduh Pdf</th>
 		<!-- <th>Tindakan</th> -->
 		</tr>
 		</thead>
@@ -113,11 +113,11 @@ $(document).ready(function(){
 			}
       },
       'columns': [
-		 { data: 'nm_prtn' },
 		 { data: 'jns_prtn' },
-		 { data: 'r_lingkup' },
-		 { data: 'th_prtn' },
 		 { data: 'nmr_prtn' },
+		 { data: 'th_prtn' },
+		 { data: 'nm_prtn' },
+		 { data: 'r_lingkup' },
 		 { data: 'sts_prtn' },
 		 { data: 'stru_prtn' },
 		 { data: 'nm_doc_prtn' },

@@ -97,7 +97,7 @@ $(document).ready(function(){
 	}
 	},
 	   
-	//   'order': [[ 0, "desc" ]],
+	  'order': [[ 0, "asc" ]], 
       'processing': true,
       'serverSide': true,
       'serverMethod': 'post',
@@ -113,7 +113,7 @@ $(document).ready(function(){
 			}
       },
       'columns': [
-		 { data: 'jns_prtn' },
+		 { data: 'nm_jdih_jns' },
 		 { data: 'nmr_prtn' },
 		 { data: 'th_prtn' },
 		 { data: 'nm_prtn' },

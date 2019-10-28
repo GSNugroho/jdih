@@ -657,8 +657,8 @@ class Jdih extends CI_Controller {
 		}
 
 		$data[] = array( 
+			"nm_jdih_jns" => $row->nm_jdih_jns,
 			"r_lingkup" => $r_lingkup,
-			"jns_prtn" => $row->nm_jdih_jns,
 			"th_prtn" => $row->th_prtn,
 			"nmr_prtn" => $row->nmr_prtn,
 			"nm_prtn" => $row->nm_prtn,

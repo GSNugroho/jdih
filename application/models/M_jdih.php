@@ -39,7 +39,7 @@ class M_jdih extends CI_Model{
 	}
 
 	function get_total_ft($searchQuery, $columnName, $columnSortOrder, $baris, $rowperpage){
-		$query = $this->db->query("SELECT TOP ".$rowperpage." * FROM SKR_Jdih JOIN SKR_Jdih_jns ON SKR_Jdih.jns_prtn = SKR_Jdih_jns.id_jns WHERE 1=1 AND SKR_Jdih.dl_sts = 1".$searchQuery." and SKR_Jdih.kd_jdih NOT IN (
+		$query = $this->db->query("SELECT TOP ".$rowperpage." kd_jdih, nm_jdih_jns, nmr_prtn, th_prtn, nm_prtn, r_lingkup, sts_prtn, stru_prtn FROM SKR_Jdih JOIN SKR_Jdih_jns ON SKR_Jdih.jns_prtn = SKR_Jdih_jns.id_jns WHERE 1=1 AND SKR_Jdih.dl_sts = 1".$searchQuery." and SKR_Jdih.kd_jdih NOT IN (
 			SELECT TOP ".$baris." SKR_Jdih.kd_jdih FROM SKR_Jdih JOIN SKR_Jdih_jns ON SKR_Jdih.jns_prtn = SKR_Jdih_jns.id_jns WHERE 1=1 AND SKR_Jdih.dl_sts = 1".$searchQuery." order by ".$columnName." ".$columnSortOrder.")
 			order by ".$columnName." ".$columnSortOrder);
 		return $query->result();

@@ -620,10 +620,10 @@ class Jdih extends CI_Controller {
 		</a>';
 		
 		$button = '
-		<a href="read/'.$row->kd_jdih.'" class="btn btn-info">
+		<a href="read/'.$row->kd_jdih.'.html" class="btn btn-info">
 		<i class="fa fa-info"></i>
 		</a>
-		<a href="update/'.$row->kd_jdih.'" class="btn btn-warning">
+		<a href="update/'.$row->kd_jdih.'.html" class="btn btn-warning">
         <i class="fa fa-edit"></i>
         </a>
 		<a href="delete/'.$row->kd_jdih.'" class="btn btn-danger">

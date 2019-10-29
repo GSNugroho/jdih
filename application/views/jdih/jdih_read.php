@@ -9,7 +9,7 @@
 	</div>
 		
 	<div class="box-body"> 
-    <a href="<?php echo base_url('Jdih/list_jdih') ?>" class="btn btn-danger">Kembali</a>
+    <a href="<?php echo base_url('Jdih/list_jdih.html') ?>" class="btn btn-danger">Kembali</a>
     <table>
     <tr><td>Ruang Lingkup</td><td>:</td><td><?php echo $r_lingkup; ?></td></tr>
     <tr><td>Jenis Peraturan</td><td>:</td><td><?php echo $jns_prtn; ?></td></tr>

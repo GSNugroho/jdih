@@ -90,6 +90,10 @@ class M_jdih extends CI_Model{
 		$query = $this->db->query("SELECT * FROM SKR_Jdih_jns WHERE id_jns = '".$id."'");
 		return $query->row();
 	}
+	public function get_by_jns_like($id){
+		$query = $this->db->query("SELECT * FROM SKR_Jdih_jns WHERE nm_jdih_jns LIKE '%".$id."%'");
+		return $query->row();
+	}
 	public function insert_jns($data){
 		$this->db->insert('SKR_Jdih_jns', $data);
 	}
@@ -233,7 +237,6 @@ class M_jdih extends CI_Model{
 		$query = $this->db->query("SELECT SKR_Jdih.r_lingkup, COUNT(SKR_Jdih.r_lingkup) as total FROM SKR_Jdih WHERE SKR_Jdih.dl_sts = 1 GROUP BY SKR_Jdih.r_lingkup");
 		return $query->result();
 	}
-
 
 }
 ?>

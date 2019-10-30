@@ -3,6 +3,7 @@
 ?>
     <script src="<?php echo base_url('assets/bower_components/chart.js/Chart.js')?>"></script>
     <script src="<?php echo base_url('assets/bower_components/highchart/highcharts.js')?>"></script>
+    <script src="<?php echo base_url('assets/bower_components/highchart/themes/my_theme.js')?>"></script>
     <div class="container">
     <section class="content-header">
       <h1>
@@ -343,12 +344,12 @@
     },
     legend: {
                 enabled: true,
-                align: 'center',
+                align: 'right',
                 // width: '100%',
-                // verticalAlign: 'bottom',
+                verticalAlign: 'middle',
                 // useHTML: true,
                 labelFormatter: function() {
-                    return ' ' + this.name + ' : ' + this.percentage.toFixed (1) + '%';
+                    return ' ' + this.name + ' : ' + this.percentage.toFixed (1) + '% (' + this.y +')';
 				        }
     },
     series: [{
@@ -392,13 +393,13 @@ Highcharts.chart('pieChart2', {
     },
     legend: {
                 enabled: true,
-                align: 'center',
+                align: 'right',
                 // width: '800px',
-                // verticalAlign: 'bottom',
+                verticalAlign: 'middle',
                 // useHTML: true,
                 float: 'left',
                 labelFormatter: function() {
-                    return ' ' + this.name + ' : ' + this.percentage.toFixed (1) + '%';
+                    return ' ' + this.name + ' : ' + this.percentage.toFixed (1) + '% (' + this.y + ')';
 				        }
     },
     series: [{

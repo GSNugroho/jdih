@@ -436,6 +436,11 @@ class Jdih extends CI_Controller {
 		$this->load->view('jns_jdih/jns_jdih_input');
 	}
 	public function create_jns_prtn_action(){
+		$row = $this->M_jdih->get_by_jns_like($this->input->post('jns_prtn', TRUE));
+		if($row){
+			$this->session->set_flashdata('messagess', 'Nama Jenis Peraturan Tidak Boleh Sama');
+			$this->create_jns_prtn();
+		}else{
 		$nomor = $this->M_jdih->get_no();
 		foreach($nomor as $row){
 			$dt = $row->maxkode;
@@ -453,6 +458,7 @@ class Jdih extends CI_Controller {
 		$this->M_jdih->insert_jns($data);
 		$this->session->set_flashdata('message', 'Tambah Data Jenis Peraturan Berhasil');
 		redirect(base_url('Jdih/jns_prtn'));
+	}
 	}
 	public function update_jns_prtn($id){
 		$row = $this->M_jdih->get_by_id_jns($id);

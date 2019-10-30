@@ -4,6 +4,11 @@
 
     <div class="container">
 <div class="box box-info">
+		<?php
+			if (($this->session->userdata('messagess')) <> '') {
+                echo '<div class="pesans">'.$this->session->userdata('messages').'</div>';
+            }
+        ?>
 	<div class="box-header with-border">
     	<h3 class="box-title">Tambah Jenis Peraturan</h3>
 	</div>

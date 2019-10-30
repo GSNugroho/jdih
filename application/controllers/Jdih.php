@@ -460,6 +460,16 @@ class Jdih extends CI_Controller {
 		redirect(base_url('Jdih/jns_prtn'));
 	}
 	}
+
+	public function cek_jns(){
+		$row = $this->M_jdih->get_by_jns_like($this->input->post('jns_prtn', TRUE));
+		if($row){
+			echo 'taken';
+		}else{
+			echo 'not_taken';
+		}
+		exit();
+	}
 	public function update_jns_prtn($id){
 		$row = $this->M_jdih->get_by_id_jns($id);
 

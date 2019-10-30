@@ -91,7 +91,7 @@ class M_jdih extends CI_Model{
 		return $query->row();
 	}
 	public function get_by_jns_like($id){
-		$query = $this->db->query("SELECT * FROM SKR_Jdih_jns WHERE nm_jdih_jns LIKE '%".$id."%'");
+		$query = $this->db->query("SELECT * FROM SKR_Jdih_jns WHERE nm_jdih_jns = '".$id."'");
 		return $query->row();
 	}
 	public function insert_jns($data){

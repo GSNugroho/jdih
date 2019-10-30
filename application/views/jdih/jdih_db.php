@@ -45,7 +45,7 @@
                 <div class="box-body no-padding">
                 <div class="chart">
                   <!-- <canvas id="pieChart2" style="height:250px"></canvas> -->
-                  <div id="pieChart2" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+                  <div id="pieChart2" style="min-width: 400px; height: 400px; max-width: 860px; margin: 0 auto"></div>
                   <!-- <div id="js-legend2" class="chart-legend"></div> -->
                 </div>
                   <!-- /.users-list -->
@@ -396,6 +396,7 @@ Highcharts.chart('pieChart2', {
                 align: 'right',
                 // width: '800px',
                 verticalAlign: 'middle',
+                margin: 130,
                 // useHTML: true,
                 float: 'left',
                 labelFormatter: function() {

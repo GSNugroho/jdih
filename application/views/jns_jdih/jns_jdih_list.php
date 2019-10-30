@@ -42,7 +42,7 @@
         <h3 class="box-title">Jenis Peraturan</h3>
     </div>
 <div class="box-body">
-        <a href="<?php echo base_url('jdih/create_jns_prtn')?>" class="btn btn-primary btn-icon-split">
+        <a href="<?php echo base_url('jdih/create_jns_prtn')?>" class="btn btn-info btn-icon-split">
         	<span class="text">Tambah Data</span>
         </a>
         <br><br>

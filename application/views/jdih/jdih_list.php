@@ -109,7 +109,7 @@ $(document).ready(function(){
 		"sLast":     "Terakhir"
 	}
 	},
-	  'lengthMenu': [[10, 25, 50, 100, 9223372036854776], [10, 25, 50, 100, 'All']],
+	  'lengthMenu': [[10, 25, 50, 100, 9223372036854776], [10, 25, 50, 100, 'Semua']],
 	  'order': [[ 0, "asc" ]],
       'processing': true,
       'serverSide': true,
